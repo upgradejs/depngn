@@ -16,7 +16,7 @@ export async function getCompatData() {
 async function getDependencies(): Promise<PackageList> {
   const list = await execWithLog(
     'Reading your dependencies',
-    async () => await asyncExec(`npm ls --json`)
+    async () => await asyncExec(`npm ls --depth=0 --json`)
   );
   return JSON.parse(list.stdout).dependencies;
 }
