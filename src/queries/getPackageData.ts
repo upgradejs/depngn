@@ -1,7 +1,7 @@
 import { satisfies } from 'compare-versions';
-import { CompatData } from '../types';
+import { EnginesData } from '../types';
 
-export function getPackageData(dep: CompatData, version: string) {
+export function getPackageData(dep: EnginesData, version: string) {
   const range = dep.range ? dep.range : 'n/a';
   const compatible = isCompatible(version, dep.range);
   return { compatible, range };

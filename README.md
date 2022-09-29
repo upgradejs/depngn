@@ -51,14 +51,15 @@ The `engines` field in `package.json` is optional and many libraries don't inclu
 
 ## Package
 
-You can also import the `depngn` function to use in your own CLI tools. It's output is always a string, but the contents will depend on the `reporter` you choose.
-
-### Type
+You can also import the `depngn` function to use in your own CLI tools. The only argument is `nodeVersion: string` and it's output type is:
 
 ```typescript
-interface Depngn {
-  version: string;
-  reporter: 'terminal' | 'json';
+// the string is the name of the package
+type DepngnReturn = Record<string, CompatData>;
+
+interface CompatData {
+  compatible: boolean | undefined;
+  range: string;
 }
 ```
 
@@ -68,7 +69,7 @@ interface Depngn {
 import { depngn } from 'depngn';
 
 const generateReport = async () => {
-  return await depngn({ version: '10.0.0', reporter: 'json' });
+  return await depngn('10.0.0');
 };
 ```
 

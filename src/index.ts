@@ -1,17 +1,8 @@
 import { getCompatData } from './queries';
-import { createReport } from './reporter';
-import { validateArgs } from './validate';
 
-interface Depngn {
-  version: string;
-  reporter: 'terminal' | 'json'
-}
-
-export async function depngn({ version, reporter = 'json' }: Depngn) {
+export async function depngn(version: string) {
   try {
-    validateArgs(version, reporter);
-    const compatData = await getCompatData();
-    return createReport(compatData, version, reporter);
+    return await getCompatData(version, { logs: false });
   } catch (error) {
     throw new Error(`${error}`);
   }

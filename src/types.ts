@@ -1,11 +1,11 @@
-export interface CompatData {
+export interface EnginesData {
   package: string;
   range: string;
 }
 
-export type CompatDataArray = Array<CompatData>;
+export type EnginesDataArray = Array<EnginesData>;
 
-export interface CompatObject {
+export interface CompatData {
   compatible: boolean | undefined;
   range: string;
 }
@@ -16,3 +16,5 @@ export interface PackageData {
   version: string;
   resolved: string;
 }
+
+export type Reporter = 'terminal' | 'json';
