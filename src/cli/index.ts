@@ -1,9 +1,9 @@
 import { bail } from './log';
 import { parseCliArgs } from './parse';
+import { createReport } from './reporter';
 import { createUsage } from './usage';
+import { validateArgs } from './validate';
 import { getCompatData } from '../queries';
-import { writeReport } from '../reporter';
-import { validateArgs } from '../validate';
 
 export async function cli() {
   try {
@@ -12,8 +12,8 @@ export async function cli() {
       createUsage();
     } else {
       validateArgs(version, reporter);
-      const compatData = await getCompatData();
-      await writeReport(compatData, version, reporter);
+      const compatData = await getCompatData(version, { logs: true });
+      await createReport(compatData, version, reporter);
     }
   } catch (error) {
     bail(error);

@@ -22,7 +22,7 @@ export async function getPackageManager() {
     pathExists('package-lock.json'),
     pathExists('yarn.lock')
   ];
-  return Promise.all(managerChecks).then(([isNpm, isYarn]) => {
+  const packageManager = await Promise.all(managerChecks).then(([isNpm, isYarn]) => {
     let manager: Managers | undefined;
     if (isNpm) {
       manager = 'npm';
@@ -31,6 +31,12 @@ export async function getPackageManager() {
     }
     return manager;
   });
+  if (!packageManager) {
+    throw new Error(
+      'Could not determine package manager. You may be missing a lock file or using an unsupported package manager.'
+    );
+  }
+  return packageManager;
 }
 
 async function pathExists(path: string) {

@@ -1,15 +1,14 @@
 import { blue, green, red, yellow } from 'kleur/colors';
 import { table, TableUserConfig } from 'table';
-import { getPackageData } from './shared';
-import { CompatDataArray } from '../types';
+import { CompatData } from '../../types';
 
-export function createTable(compatData: CompatDataArray, version: string) {
+export function createTable(compatData: Record<string, CompatData>, version: string) {
   const titles = ['package', 'compatible', 'range'].map((title) =>
     blue(title)
   );
-  const out = compatData.map((dep) => {
-    const { compatible, range } = getPackageData(dep, version);
-    return [dep.package, toColorString(compatible), range];
+  const out = Object.keys(compatData).map((dep) => {
+    const { compatible, range } = compatData[dep];
+    return [dep, toColorString(compatible), range];
   });
   out.unshift(titles);
 
@@ -19,12 +18,7 @@ export function createTable(compatData: CompatDataArray, version: string) {
       content: green(`\nNode version: ${version}\n`),
     },
   };
-  return table(out, config);
-}
-
-export function writeTable(compatData: CompatDataArray, version: string) {
-  const table = createTable(compatData, version);
-  console.log(table);
+  console.log(table(out, config));
 }
 
 function toColorString(value: boolean | undefined) {
