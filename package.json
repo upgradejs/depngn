@@ -1,6 +1,6 @@
 {
   "name": "depngn",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Determine the compatibility of your packages with a given Node version",
   "type": "module",
   "main": "./dist/index.cjs",
