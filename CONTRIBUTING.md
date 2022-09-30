@@ -3,7 +3,7 @@
 ## Getting Started
 
 ```bash
-git clone git@github.com:ombulabs/depngn.git
+git clone git@github.com:upgradejs/depngn.git
 cd depngn
 npm install
 ```

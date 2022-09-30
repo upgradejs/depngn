@@ -1,6 +1,6 @@
 {
   "name": "depngn",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Determine the compatibility of your packages with a given Node version",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -14,6 +14,10 @@
   "bin": {
     "depngn": "bin/depngn.cjs"
   },
+  "files": [
+    "dist",
+    "bin"
+  ],
   "scripts": {
     "dev": "node src/index",
     "build": "rimraf dist && tsc && rollup -c rollup.config.js",
