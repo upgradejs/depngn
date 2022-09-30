@@ -1,5 +1,8 @@
 # main (unreleased)
 
+# 0.1.2
+- [[bugfix]: update shape of data returned from yarn](https://github.com/ombulabs/depngn/pull/5)
+
 # 0.1.1
 
 - [[bugfix]: specify depth in npm ls to avoid errors from uninstalled peerDeps](https://github.com/ombulabs/depngn/pull/1)

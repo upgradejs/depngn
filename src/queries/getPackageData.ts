@@ -14,10 +14,10 @@ function isCompatible(nodeVersion: string, depRange: string) {
 
   const logicalOrRegEx = /||/;
   if (depRange && logicalOrRegEx.test(depRange)) {
-    const rangeArray = depRange.split('||').map((range) => range.trim());
+    const rangeArray = depRange.split('||').map((range) => range.replaceAll(' ', ''));
     compatible = rangeArray.some((range) => satisfies(nodeVersion, range));
   } else {
-    compatible = satisfies(nodeVersion, depRange);
+    compatible = satisfies(nodeVersion, depRange.replaceAll(' ', ''));
   }
   return compatible;
 }
