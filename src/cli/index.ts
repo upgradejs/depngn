@@ -3,7 +3,7 @@ import { parseCliArgs } from './parse';
 import { createReport } from './reporter';
 import { createUsage } from './usage';
 import { validateArgs } from './validate';
-import { getCompatData } from '../queries';
+import { depngn } from '../';
 
 export async function cli() {
   try {
@@ -12,7 +12,7 @@ export async function cli() {
       createUsage();
     } else {
       validateArgs(version, reporter);
-      const compatData = await getCompatData(version, { logs: true });
+      const compatData = await depngn(version);
       await createReport(compatData, version, reporter);
     }
   } catch (error) {

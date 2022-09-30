@@ -1,8 +1,8 @@
 import { asyncExec, execWithLog } from "../cli/exec";
-import { EnginesData, PackageList } from "../types";
 import { Managers, viewEnginesCommand } from "./getPackageManager";
+import { PackageList } from "../types";
 
-export async function getEngines(deps: PackageList, manager: Managers, logs: boolean) {
+export async function getEngines(deps: PackageList, manager: Managers) {
   const command = viewEnginesCommand(manager);
   const depsArray = Object.keys(deps).map(async (dep) => {
     const engines = await asyncExec(
@@ -15,15 +15,8 @@ export async function getEngines(deps: PackageList, manager: Managers, logs: boo
     };
   });
 
-  return await promiseAllEngines(depsArray, logs);
-}
-
-async function promiseAllEngines(
-  promises: Array<Promise<EnginesData>>,
-  logs: boolean
-) {
-  const enginesPromise = async () => await Promise.all(promises);
-  return logs
-    ? await execWithLog('Fetching engine data', enginesPromise)
-    : await enginesPromise();
+  return await execWithLog(
+    'Fetching engine data',
+    async () => await Promise.all(depsArray)
+  );
 }

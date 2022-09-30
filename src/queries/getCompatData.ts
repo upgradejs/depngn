@@ -4,10 +4,10 @@ import { getPackageData } from './getPackageData';
 import { getPackageManager } from './getPackageManager';
 import { CompatData, EnginesDataArray } from '../types';
 
-export async function getCompatData(version: string, { logs = false }) {
+export async function getCompatData(version: string) {
   const manager = await getPackageManager();
-  const deps = await getDependencies(logs);
-  const engines = await getEngines(deps, manager, logs);
+  const deps = await getDependencies();
+  const engines = await getEngines(deps, manager);
   return createCompatData(engines, version);
 }
 

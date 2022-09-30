@@ -49,12 +49,11 @@ The `engines` field in `package.json` is optional and many libraries don't inclu
 }
 ```
 
-## Package
+## Standalone Package
 
-You can also import the `depngn` function to use in your own CLI tools. The only argument is `nodeVersion: string` and it's output type is:
+You can also import `depngn` as a standalone function to use in your own CLI tools. It takes one argument: `nodeVersion: string`, and it returns a promise that resolves to:
 
 ```typescript
-// the string is the name of the package
 type DepngnReturn = Record<string, CompatData>;
 
 interface CompatData {
