@@ -12,7 +12,7 @@ function isCompatible(nodeVersion: string, depRange: string) {
 
   let compatible;
 
-  const logicalOrRegEx = /||/;
+  const logicalOrRegEx = /\|\|/;
   if (depRange && logicalOrRegEx.test(depRange)) {
     const rangeArray = depRange.split('||').map((range) => range.replaceAll(' ', ''));
     compatible = rangeArray.some((range) => satisfies(nodeVersion, range));

@@ -18,3 +18,11 @@ export interface PackageData {
 }
 
 export type Reporter = 'terminal' | 'json';
+
+export type ManagerName = 'npm' | 'yarn';
+
+export interface Manager {
+  name: ManagerName;
+  list: string;
+  engines: string;
+}

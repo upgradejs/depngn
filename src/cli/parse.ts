@@ -1,5 +1,5 @@
 import arg from 'arg';
-import { asyncExec } from './exec';
+import { asyncExec } from '../queries';
 
 export async function parseCliArgs() {
     const args = arg({

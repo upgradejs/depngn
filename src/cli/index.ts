@@ -1,4 +1,4 @@
-import { bail } from './log';
+import { execWithLog } from './log';
 import { parseCliArgs } from './parse';
 import { createReport } from './reporter';
 import { createUsage } from './usage';
@@ -12,10 +12,14 @@ export async function cli() {
       createUsage();
     } else {
       validateArgs(version, reporter);
-      const compatData = await depngn(version);
+      const compatData = await execWithLog(
+        'Fetching engine data',
+        async () => await depngn(version)
+      );
       await createReport(compatData, version, reporter);
     }
   } catch (error) {
-    bail(error);
+    console.error(error);
+    process.exitCode = 1;
   }
 }
