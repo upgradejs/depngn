@@ -1,4 +1,3 @@
-import { describe, expect, it, jest } from '@jest/globals';
 import { createUsage } from '../../src/cli/usage';
 
 describe('createUsage', () => {
