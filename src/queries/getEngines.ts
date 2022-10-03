@@ -31,7 +31,7 @@ function parseEngines(
     case 'yarn':
       return res.data?.node ? res.data.node : '';
     default:
-      const wrong = manager as never;
+      const wrong = manager.name as never;
       throw new Error(
         `This error shouldn't happen, but somehow an invalid package manager made it through checks: ${wrong}.`
       );
