@@ -6,12 +6,12 @@ import { CompatData, EnginesDataArray } from '../types';
 
 export async function getCompatData(version: string) {
   const manager = await getPackageManager();
-  const deps = await getDependencies();
+  const deps = await getDependencies(manager);
   const engines = await getEngines(deps, manager);
   return createCompatData(engines, version);
 }
 
-function createCompatData(compatData: EnginesDataArray, version: string) {
+export function createCompatData(compatData: EnginesDataArray, version: string) {
   const compatObject: Record<string, CompatData> = {};
   compatData.forEach((dep) => {
     compatObject[dep.package] = getPackageData(dep, version);

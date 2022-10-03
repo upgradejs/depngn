@@ -1,33 +1,35 @@
-import { access } from "fs/promises";
+import { access } from 'fs/promises';
+import { Manager, ManagerName } from '../types';
 
-
-const PACKAGE_MANAGER = {
+const PACKAGE_MANAGER: Record<string, Manager> = {
   npm: {
-    list: 'npm ls',
-    engines: 'npm view'
+    name: 'npm',
+    list: 'npm ls --depth=0 --json',
+    engines: 'npm view',
   },
   yarn: {
+    name: 'yarn',
     // `yarn list --depth=0` is misleading and includes dependencies of dependencies
     // for some reason, `npm ls` works with `yarn` apps?
     // context: https://github.com/yarnpkg/yarn/issues/3569
-    list: 'npm ls',
-    engines: 'yarn info'
-  }
+    list: 'npm ls --depth=0 --json',
+    engines: 'yarn info',
+  },
 };
 
-export type Managers = 'npm' | 'yarn';
-
-export async function getPackageManager() {
+export async function getPackageManager(): Promise<Manager> {
   const managerChecks = [
     pathExists('package-lock.json'),
-    pathExists('yarn.lock')
+    pathExists('yarn.lock'),
   ];
-  const packageManager = await Promise.all(managerChecks).then(([isNpm, isYarn]) => {
-    let manager: Managers | undefined;
+  const packageManager: ManagerName | undefined = await Promise.all(
+    managerChecks
+  ).then(([isNpm, isYarn]) => {
+    let manager: ManagerName | undefined;
     if (isNpm) {
       manager = 'npm';
     } else if (isYarn) {
-      manager = 'yarn'
+      manager = 'yarn';
     }
     return manager;
   });
@@ -36,7 +38,7 @@ export async function getPackageManager() {
       'Could not determine package manager. You may be missing a lock file or using an unsupported package manager.'
     );
   }
-  return packageManager;
+  return PACKAGE_MANAGER[packageManager];
 }
 
 async function pathExists(path: string) {
@@ -46,12 +48,4 @@ async function pathExists(path: string) {
   } catch {
     return false;
   }
-}
-
-export function listCommand(manager: keyof typeof PACKAGE_MANAGER) {
-  return PACKAGE_MANAGER[manager].list;
-}
-
-export function viewEnginesCommand(manager: keyof typeof PACKAGE_MANAGER) {
-  return PACKAGE_MANAGER[manager].engines;
 }

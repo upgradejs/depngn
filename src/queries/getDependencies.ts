@@ -1,10 +1,11 @@
-import { asyncExec, execWithLog } from "../cli/exec";
-import { PackageList } from "../types";
+import { asyncExec } from './exec';
+import { PackageList, Manager } from '../types';
 
-export async function getDependencies(): Promise<PackageList> {
-  const list = await execWithLog(
-    'Reading your dependencies',
-    async () => await asyncExec(`npm ls --depth=0 --json`)
-  );
-  return JSON.parse(list.stdout).dependencies;
+export async function getDependencies(manager: Manager): Promise<PackageList> {
+  try {
+    const list = await asyncExec(manager.list);
+    return JSON.parse(list.stdout).dependencies;
+  } catch (error) {
+    throw error;
+  }
 }
