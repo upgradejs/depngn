@@ -7,7 +7,7 @@ import { depngn } from '../';
 
 export async function cli() {
   try {
-    const { version, reporter, help } = await parseCliArgs();
+    const { version, reporter, help } = parseCliArgs();
     if (help) {
       createUsage();
     } else {
