@@ -1,6 +1,7 @@
 import { createJson } from './json';
 import { createTable} from './table';
 import { CompatData } from '../../types';
+import { createHtml } from './html';
 
 export function createReport(
   compatData: Record<string, CompatData>,
@@ -12,6 +13,8 @@ export function createReport(
       return createTable(compatData, version);
     case 'json':
       return createJson(compatData, version);
+    case 'html':
+      return createHtml(compatData, version);
     default:
       const wrong = reporter as never;
       throw new Error(
