@@ -10,6 +10,9 @@ export function getPackageData(dep: EnginesData, version: string) {
 function isCompatible(nodeVersion: string, depRange: string) {
   if (!depRange) return undefined;
 
+  // if a dependency has `*` for the node version, it's always compatible
+  if (['x', '*'].includes(depRange)) return true;
+
   let compatible;
 
   const logicalOrRegEx = /\|\|/;
