@@ -1,7 +1,7 @@
 import { validate } from 'compare-versions';
 import { green, red } from 'kleur/colors';
 
-const REPORTERS = ['terminal', 'json'];
+const REPORTERS = ['terminal', 'json', 'html'];
 
 export function validateArgs(nodeVersion: string, reporter: string) {
   validateNodeVersion(nodeVersion);
