@@ -1,5 +1,11 @@
 # main (unreleased)
 
+- [[bugfix]: keep README.md, CONTRIBUTING.md and CHANGELOG.md current and up to date](https://github.com/upgradejs/depngn/pull/27)
+- [[feature]: add support for packages that specify * versions](https://github.com/upgradejs/depngn/pull/19)
+- [[feature]: add support for html reporter](https://github.com/upgradejs/depngn/pull/21)
+- [[feature]: start using GitHub Actions for CI](https://github.com/upgradejs/depngn/pull/23)
+- [[feature]: allow us to use node 14](https://github.com/upgradejs/depngn/pull/24)
+
 # 0.1.4
 - [[feature]: use `process.versions.node`](https://github.com/upgradejs/depngn/pull/9)
 
