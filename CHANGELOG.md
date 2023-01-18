@@ -1,5 +1,6 @@
 # main (unreleased)
 
+- [[feature]: add links to the GitHub repo to be able to navigate from the npm package page](https://github.com/upgradejs/depngn/pull/27)
 - [[bugfix]: keep README.md, CONTRIBUTING.md and CHANGELOG.md current and up to date](https://github.com/upgradejs/depngn/pull/27)
 - [[feature]: add support for packages that specify * versions](https://github.com/upgradejs/depngn/pull/19)
 - [[feature]: add support for html reporter](https://github.com/upgradejs/depngn/pull/21)
@@ -19,7 +20,7 @@
 # 0.1.1
 - [[bugfix]: specify depth in npm ls to avoid errors from uninstalled peerDeps](https://github.com/ombulabs/depngn/pull/1)
 - [[feature]: refactor and disable logging for standalone package](https://github.com/ombulabs/depngn/pull/2)
-- [[feature]: rever logging change](https://github.com/ombulabs/depngn/pull/3)
+- [[feature]: revert logging change](https://github.com/ombulabs/depngn/pull/3)
 
 # 0.1.0
-- intial commit
+- initial commit
