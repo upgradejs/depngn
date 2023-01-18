@@ -1,5 +1,6 @@
 # main (unreleased)
 
+# 0.2.0
 - [[feature]: add links to the GitHub repo to be able to navigate from the npm package page](https://github.com/upgradejs/depngn/pull/27)
 - [[bugfix]: keep README.md, CONTRIBUTING.md and CHANGELOG.md current and up to date](https://github.com/upgradejs/depngn/pull/27)
 - [[feature]: add support for packages that specify * versions](https://github.com/upgradejs/depngn/pull/19)
