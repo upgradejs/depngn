@@ -28,6 +28,11 @@ npx depngn 14.17.6 --reporter=json
 
 - `--reporter`
 - `--help`
+- `--cwd`
+
+#### `--cwd`
+
+Specify the path where you want the check to be performed 
 
 #### `--reporter`
 
@@ -60,8 +65,16 @@ The `engines` field in `package.json` is optional and many libraries don't inclu
 ## Standalone Package
 
 You can also import `depngn` as a standalone function to use in your own CLI
-tools. It takes one argument: `nodeVersion: string`, and it returns a promise
-that resolves to:
+tools. It takes an object as an argument:
+
+```typescript
+interface Options {
+  version: string;
+  cwd: string | undefined;
+}
+```
+
+And it returns a promise that resolves to:
 
 ```typescript
 type DepngnReturn = Record<string, CompatData>;
@@ -78,7 +91,7 @@ interface CompatData {
 import { depngn } from 'depngn';
 
 const generateReport = async () => {
-  return await depngn('10.0.0');
+  return await depngn({ version: '10.0.0' });
 };
 ```
 

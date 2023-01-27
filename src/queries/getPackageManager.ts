@@ -1,14 +1,14 @@
 import { access } from 'fs/promises';
-import { Manager, ManagerName } from '../types';
+import { Manager, PackageManagerName } from '../types';
 
 const PACKAGE_MANAGER: Record<string, Manager> = {
-  npm: {
-    name: 'npm',
+  [PackageManagerName.Npm]: {
+    name: PackageManagerName.Npm,
     list: 'npm ls --depth=0 --json',
     engines: 'npm view',
   },
-  yarn: {
-    name: 'yarn',
+  [PackageManagerName.Yarn]: {
+    name: PackageManagerName.Yarn,
     // `yarn list --depth=0` is misleading and includes dependencies of dependencies
     // for some reason, `npm ls` works with `yarn` apps?
     // context: https://github.com/yarnpkg/yarn/issues/3569
@@ -22,20 +22,21 @@ export async function getPackageManager(): Promise<Manager> {
     pathExists('package-lock.json'),
     pathExists('yarn.lock'),
   ];
-  const packageManager: ManagerName | undefined = await Promise.all(
+  const packageManager: PackageManagerName | undefined = await Promise.all(
     managerChecks
   ).then(([isNpm, isYarn]) => {
-    let manager: ManagerName | undefined;
+    let manager: PackageManagerName | undefined;
     if (isNpm) {
-      manager = 'npm';
+      manager = PackageManagerName.Npm;
     } else if (isYarn) {
-      manager = 'yarn';
+      manager = PackageManagerName.Yarn;
     }
     return manager;
   });
   if (!packageManager) {
+    const currentCwd = process.cwd();
     throw new Error(
-      'Could not determine package manager. You may be missing a lock file or using an unsupported package manager.'
+      `Could not determine package manager. You may be missing a lock file or using an unsupported package manager.\nThe search was performed on the path - ${currentCwd}`
     );
   }
   return PACKAGE_MANAGER[packageManager];

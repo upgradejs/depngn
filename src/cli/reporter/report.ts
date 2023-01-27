@@ -1,19 +1,19 @@
 import { createJson } from './json';
 import { createTable} from './table';
-import { CompatData } from '../../types';
+import { CompatData, Reporter } from '../../types';
 import { createHtml } from './html';
 
 export function createReport(
   compatData: Record<string, CompatData>,
   version: string,
-  reporter: string
+  reporter: Reporter
 ) {
   switch (reporter) {
-    case 'terminal':
+    case Reporter.Terminal:
       return createTable(compatData, version);
-    case 'json':
+    case Reporter.Json:
       return createJson(compatData, version);
-    case 'html':
+    case Reporter.Html:
       return createHtml(compatData, version);
     default:
       const wrong = reporter as never;

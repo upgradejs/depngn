@@ -1,11 +1,14 @@
 import { validate } from 'compare-versions';
 import { green, red } from 'kleur/colors';
+import fs from "fs";
+import { CliParsedOptions } from "../types";
 
 const REPORTERS = ['terminal', 'json', 'html'];
 
-export function validateArgs(nodeVersion: string, reporter: string) {
-  validateNodeVersion(nodeVersion);
+export function validateArgs({ version, reporter, cwd }: CliParsedOptions) {
+  validateNodeVersion(version);
   validateReporter(reporter);
+  if (cwd) validateCwd(cwd);
 }
 
 function validateNodeVersion(nodeVersion: string) {
@@ -22,4 +25,8 @@ function validateReporter(reporter: string) {
       )}.`
     );
   }
+}
+
+function validateCwd(cwd: string) {
+  fs.existsSync(cwd);
 }
