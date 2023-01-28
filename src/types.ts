@@ -36,7 +36,7 @@ export interface Manager {
 
 export interface Options {
   version: string;
-  cwd: string | undefined;
+  cwd?: string;
 }
 
 export interface CliParsedOptions extends Options {
