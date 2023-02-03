@@ -1,5 +1,5 @@
 import { asyncExec } from './exec';
-import { Manager, PackageList } from '../types';
+import { Manager, PackageList, PackageManagerName } from '../types';
 
 export async function getEngines(deps: PackageList, manager: Manager) {
   try {
@@ -26,9 +26,9 @@ function parseEngines(
 ) {
   const res = engines.stdout ? JSON.parse(engines.stdout) : {};
   switch (manager.name) {
-    case 'npm':
+    case PackageManagerName.Npm:
       return res.node ? res.node : '';
-    case 'yarn':
+    case PackageManagerName.Yarn:
       return res.data?.node ? res.data.node : '';
     default:
       const wrong = manager.name as never;

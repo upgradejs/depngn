@@ -17,12 +17,28 @@ export interface PackageData {
   resolved: string;
 }
 
-export type Reporter = 'terminal' | 'json';
+export enum Reporter {
+  Terminal = 'terminal',
+  Json = 'json',
+  Html = 'html'
+}
 
-export type ManagerName = 'npm' | 'yarn';
+export enum PackageManagerName {
+  Npm = 'npm',
+  Yarn = 'yarn'
+}
 
 export interface Manager {
-  name: ManagerName;
+  name: PackageManagerName;
   list: string;
   engines: string;
+}
+
+export interface Options {
+  version: string;
+  cwd?: string;
+}
+
+export interface CliParsedOptions extends Options {
+  reporter: Reporter;
 }

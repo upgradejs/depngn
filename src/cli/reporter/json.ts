@@ -5,7 +5,7 @@ export async function createJson(compatData: Record<string, CompatData>, version
   const out = JSON.stringify({
     node: version,
     dependencies: compatData,
-  });
+  }, null, 2);
   await writeFile(path, out);
   console.log(`File generated at ${path}`);
 }

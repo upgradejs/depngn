@@ -31,7 +31,8 @@
     "bin"
   ],
   "scripts": {
-    "dev": "node src/index",
+    "predev": "npm run build",
+    "dev": "./bin/depngn.cjs",
     "build": "rimraf dist && tsc && rollup -c rollup.config.js",
     "prepublishOnly": "npm run build",
     "test": "jest",

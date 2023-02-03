@@ -7,14 +7,14 @@ import { depngn } from '../';
 
 export async function cli() {
   try {
-    const { version, reporter, help } = parseCliArgs();
+    const { version, reporter, help, cwd } = parseCliArgs();
     if (help) {
       createUsage();
     } else {
-      validateArgs(version, reporter);
+      validateArgs({ version, reporter, cwd });
       const compatData = await execWithLog(
         'Fetching engine data',
-        async () => await depngn(version)
+        async () => await depngn({ version, cwd })
       );
       await createReport(compatData, version, reporter);
     }
