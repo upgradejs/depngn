@@ -3,7 +3,7 @@ import { depngn } from '../../src';
 describe('cwd option', () => {
 	it('possible to perform the check in the existing directory passing a relative path', async () => {
 		const checkResult = await depngn({ version: '18.0.0', cwd: '.' });
-		expect(checkResult).not.toBeNull();
+		expect(checkResult.typescript.compatible).toBe(true);
 	});
 
 	it('possible to perform the check in the existing directory passing an absolute path', async () => {
