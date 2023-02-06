@@ -1,5 +1,7 @@
 # main (unreleased)
-- [feature]: Add the ability to perform the check in the specified path
+
+# 0.3.0
+-[[feature]: add the ability to perform the check in the specified path using --cwd option](https://github.com/upgradejs/depngn/pull/30)
 
 # 0.2.0
 - [[feature]: add links to the GitHub repo to be able to navigate from the npm package page](https://github.com/upgradejs/depngn/pull/27)
