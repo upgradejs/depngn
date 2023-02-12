@@ -1,4 +1,4 @@
-import { asyncExec } from './exec';
+import { asyncExec } from '../utils';
 import { PackageList, Manager } from '../types';
 
 export async function getDependencies(manager: Manager): Promise<PackageList> {

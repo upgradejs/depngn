@@ -1,4 +1,4 @@
-import { writeFile } from 'fs/promises';
+import { writeFile } from '../../utils';
 import { CompatData } from '../../types';
 
 export async function createHtml(compatData: Record<string, CompatData>, version: string, path: string = 'compat.html') {

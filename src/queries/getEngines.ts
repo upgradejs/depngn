@@ -1,4 +1,4 @@
-import { asyncExec } from './exec';
+import { asyncExec } from '../utils';
 import { Manager, PackageList, PackageManagerName } from '../types';
 
 export async function getEngines(deps: PackageList, manager: Manager) {
