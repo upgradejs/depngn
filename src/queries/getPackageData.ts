@@ -16,11 +16,12 @@ function isCompatible(nodeVersion: string, depRange: string) {
   let compatible;
 
   const logicalOrRegEx = /\|\|/;
+  const spaceRegEx = /\s/g;
   if (depRange && logicalOrRegEx.test(depRange)) {
-    const rangeArray = depRange.split('||').map((range) => range.replaceAll(' ', ''));
+    const rangeArray = depRange.split('||').map((range) => range.replace(spaceRegEx, ''));
     compatible = rangeArray.some((range) => satisfies(nodeVersion, range));
   } else {
-    compatible = satisfies(nodeVersion, depRange.replaceAll(' ', ''));
+    compatible = satisfies(nodeVersion, depRange.replace(spaceRegEx, ''));
   }
   return compatible;
 }
