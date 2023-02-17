@@ -25,9 +25,8 @@ function safeSatisfies(nodeVersion: string, range: string) {
 }
 
 // trims leading and trailing whitespace, whitespace
-// between the comparator operators and the actual version number,
-// whitespace between digits and decimals in the version number, and
-// whitespace between the numbers/wildcards/decimals in the actual
+// between the comparator operators and the actual version number, 
+// and whitespace between the numbers/wildcards/decimals in the actual
 // version number. ie, ' > = 12.0.0 ' becomes '>=12.0.0'
 //
 // it also ensures there's only one space in logical `AND` ranges
