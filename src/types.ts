@@ -10,7 +10,9 @@ export interface CompatData {
   range: string;
 }
 
-export type PackageList = Record<string, PackageData>;
+export interface PackageList {
+  [key: string]: PackageData;
+}
 
 export interface PackageData {
   version: string;
