@@ -24,15 +24,16 @@ function safeSatisfies(nodeVersion: string, range: string) {
   return range.split(' ').every((r) => satisfies(nodeVersion, r));
 }
 
-// trims leading and trailing whitespace and removes whitespace
-// between the comparator operators and the actual version number
-// ie, ' > = 12.0.0 ' becomes '>=12.0.0'
+// trims leading and trailing whitespace, whitespace
+// between the comparator operators and the actual version number,
+// whitespace between digits and decimals in the version number, and
+// whitespace between the numbers/wildcards/decimals in the actual
+// version number. ie, ' > = 12.0.0 ' becomes '>=12.0.0'
 //
-// does *not* handle whitespace between numbers/decimals 
-// in actual version number (ie, 1 2. 0 .0) -- the RegEx for
-// it would be silly complex, so we handle that in `safeSatisfies`
-// once we know we have a single version
+// it does *not* remove whitespace between versions in an `AND` range
+// ie, '>=1.2.9 <2.0.0', because we want to split those later
 function removeWhitespace(range: string) {
-  const extraSpaceRegEx = /((?<=(<|>))(\s+)(?=(=)))|(?<=(<|>|=|\^))(\s+)(?=\d)|((?<=(\d|\.))(\s+)(?=(\d|\.)))/g;
+  const extraSpaceRegEx =
+    /((?<=(<|>))(\s+)(?=(=)))|(?<=(<|>|=|\^|~))(\s+)(?=\d)|((?<=(\d|\.|\*|x|X))(\s+)(?=(\d|\.|\*|x|X)))/g;
   return range.trim().replace(extraSpaceRegEx, '');
 }
