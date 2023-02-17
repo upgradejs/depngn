@@ -30,10 +30,10 @@ function safeSatisfies(nodeVersion: string, range: string) {
 // whitespace between the numbers/wildcards/decimals in the actual
 // version number. ie, ' > = 12.0.0 ' becomes '>=12.0.0'
 //
-// it does *not* remove whitespace between versions in an `AND` range
+// it also ensures there's only one space in logical `AND` ranges
 // ie, '>=1.2.9 <2.0.0', because we want to split those later
 function removeWhitespace(range: string) {
   const extraSpaceRegEx =
-    /((?<=(<|>))(\s+)(?=(=)))|(?<=(<|>|=|\^|~))(\s+)(?=\d)|((?<=(\d|\.|\*|x|X))(\s+)(?=(\d|\.|\*|x|X)))/g;
+    /((?<=(<|>))(\s+)(?=(=)))|(?<=(<|>|=|\^|~))(\s+)(?=\d)|((?<=(\d|\.|\*|x|X))(\s+)(?=(\d|\.|\*|x|X)))|(?<=\d)(\s+)(?=\s<|>)/g;
   return range.trim().replace(extraSpaceRegEx, '');
 }
