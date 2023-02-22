@@ -1,5 +1,7 @@
 # main (unreleased)
 
+-[[bugfix]: support Node versions 10-14](https://github.com/upgradejs/depngn/pull/35)
+
 # 0.3.0
 -[[feature]: add the ability to perform the check in the specified path using --cwd option](https://github.com/upgradejs/depngn/pull/30)
 
