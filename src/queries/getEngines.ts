@@ -1,20 +1,33 @@
 import { asyncExec } from './exec';
-import { Manager, PackageList, PackageManagerName } from '../types';
+import {
+  EnginesDataArray,
+  Manager,
+  PackageList,
+  PackageManagerName,
+} from '../types';
+import path from 'path';
 
 export async function getEngines(deps: PackageList, manager: Manager) {
   try {
-    const depsArray = Object.keys(deps).map(async (dep) => {
-      const engines = await asyncExec(
-        `${manager.engines} ${dep}@${deps[dep].version} engines --json`
-      );
-      const range = parseEngines(engines, manager);
-      return {
-        package: dep,
-        range,
-      };
-    });
-
-    return await Promise.all(depsArray);
+    let enginesData: EnginesDataArray;
+    if (manager.name === PackageManagerName.Npm) {
+      const pkgLock = await require(path.resolve(
+        process.cwd(),
+        'package-lock.json'
+      ));
+      return Object.keys(deps).map((dep) => {
+        const range: string =
+          pkgLock.packages[`node_modules/${dep}`]?.engines?.node || '';
+        return {
+          package: dep,
+          range,
+        };
+      });
+    } else if (manager.name === PackageManagerName.Yarn) {
+      enginesData = [] as never;
+    } else {
+      enginesData = [] as never;
+    }
   } catch (error) {
     throw error;
   }
@@ -35,5 +48,28 @@ function parseEngines(
       throw new Error(
         `This error shouldn't happen, but somehow an invalid package manager made it through checks: ${wrong}.`
       );
+  }
+}
+
+async function fetchEngines(
+  deps: PackageList,
+  manager: Manager
+): Promise<EnginesDataArray> {
+  try {
+    // const pkg = await require(path.resolve(process.cwd(), 'package.json'));
+    const pkgLock = await require(path.resolve(
+      process.cwd(),
+      'package-lock.json'
+    ));
+    return Object.keys(deps).map((dep) => {
+      const range: string =
+        pkgLock.packages[`node_modules/${dep}`]?.engines?.node || '';
+      return {
+        package: dep,
+        range,
+      };
+    });
+  } catch (error) {
+    throw error;
   }
 }

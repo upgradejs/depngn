@@ -32,6 +32,7 @@ export interface Manager {
   name: PackageManagerName;
   list: string;
   engines: string;
+  lockFile: string;
 }
 
 export interface Options {
