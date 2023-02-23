@@ -11,8 +11,10 @@ export async function getDependencies(manager: Manager): Promise<PackageList> {
     const list = await asyncExec(manager.list);
     const parsedList = JSON.parse(list.stdout).dependencies;
     return Object.keys(parsedList)
-    .filter((dep) => !AUTO_EXCLUDE.includes(dep))
     .reduce((acc, curr) => {
+      if (AUTO_EXCLUDE.includes(curr)) {
+        return acc;
+      }
       return {
         ...acc,
         [curr]: parsedList[curr],
