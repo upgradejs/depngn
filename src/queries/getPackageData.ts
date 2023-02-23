@@ -21,11 +21,17 @@ function isCompatible(nodeVersion: string, depRange: string) {
 
 // accounts for `AND` ranges -- ie, `'>=1.2.9 <2.0.0'`
 function safeSatisfies(nodeVersion: string, range: string) {
-  return range.split(' ').every((r) => satisfies(nodeVersion, r));
+  return (
+    range
+      .split(' ')
+      // filter out any whitespace we may have missed with the RegEx -- ie, `'>=4.2.0    8.0.0'`
+      .filter((r) => !!r)
+      .every((r) => satisfies(nodeVersion, r))
+  );
 }
 
 // trims leading and trailing whitespace, whitespace
-// between the comparator operators and the actual version number, 
+// between the comparator operators and the actual version number,
 // and whitespace between the numbers/wildcards/decimals in the actual
 // version number. ie, ' > = 1 2. 0 .0 ' becomes '>=12.0.0'
 //
