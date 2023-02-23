@@ -11,7 +11,7 @@ export interface CompatData {
 }
 
 export interface PackageList {
-  [key: string]: PackageData;
+  [depName: string]: PackageData;
 }
 
 export interface PackageData {
