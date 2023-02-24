@@ -8,7 +8,7 @@ import {
 } from '../types';
 import path from 'path';
 
-export async function getEngines(deps: PackageList, manager: Manager) {
+export async function getEngines(deps: PackageList, manager: Manager): Promise<EnginesDataArray> {
   try {
     switch (manager.name) {
       case PackageManagerName.Npm: {
