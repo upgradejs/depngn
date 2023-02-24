@@ -5,7 +5,6 @@ const PACKAGE_MANAGER: Record<string, Manager> = {
   [PackageManagerName.Npm]: {
     name: PackageManagerName.Npm,
     list: 'npm ls --depth=0 --json',
-    engines: 'npm view',
     lockFile: 'package-lock.json',
   },
   [PackageManagerName.Yarn]: {
@@ -14,7 +13,6 @@ const PACKAGE_MANAGER: Record<string, Manager> = {
     // for some reason, `npm ls` works with `yarn` apps?
     // context: https://github.com/yarnpkg/yarn/issues/3569
     list: 'npm ls --depth=0 --json',
-    engines: 'yarn info',
     lockFile: 'yarn.lock',
   },
 };

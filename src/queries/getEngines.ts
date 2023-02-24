@@ -1,7 +1,9 @@
 import {
   EnginesDataArray,
   Manager,
+  PackageJson,
   PackageList,
+  PackageLock,
   PackageManagerName,
 } from '../types';
 import path from 'path';
@@ -10,7 +12,7 @@ export async function getEngines(deps: PackageList, manager: Manager) {
   try {
     switch (manager.name) {
       case PackageManagerName.Npm: {
-        const pkgLock = await require(path.resolve(
+        const pkgLock: PackageLock = await require(path.resolve(
           process.cwd(),
           manager.lockFile
         ));
@@ -27,7 +29,7 @@ export async function getEngines(deps: PackageList, manager: Manager) {
       }
     case PackageManagerName.Yarn: {
       return await Promise.all(Object.keys(deps).map(async (dep) => {
-        const pkg = await require(
+        const pkg: PackageJson = await require(
           path.resolve(process.cwd(), 'node_modules', dep, 'package.json')
         );
         const range = pkg?.engines?.node || '';
