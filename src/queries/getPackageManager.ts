@@ -1,4 +1,4 @@
-import { access } from 'fs/promises';
+import { access } from '../utils';
 import { Manager, PackageManagerName } from '../types';
 
 const PACKAGE_MANAGER: Record<string, Manager> = {
