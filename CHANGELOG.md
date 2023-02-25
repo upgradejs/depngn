@@ -1,5 +1,6 @@
 # main (unreleased)
 
+-[[feature]: remove `npm view` and refactor `depngn` internals](https://github.com/upgradejs/depngn/pull/39)
 -[[bugfix]: support Node versions 10-14](https://github.com/upgradejs/depngn/pull/35)
 
 # 0.3.0

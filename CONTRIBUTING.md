@@ -18,32 +18,19 @@ depngn --help
 
 ## How it works
 
-This package uses several `npm`/`yarn` built-in commands to fetch information about your dependencies:
+The standalone `depngn` package essentially does 4 things:
 
-```bash
-# used when there is no `version` argument passed
-node --version
+- determines a user's package manager by looking in the CWD for a lock file (`package-lock.json`/`yarn.lock`)
+- reads a user's top-level dependencies from `package.json` (`dependencies`, `devDependencies`, `peerDependencies`)
+- reads each dependency's `engines.node` field (if present) from either `package-lock.json` (`npm`) or traversing `node_modules` and reading each dependency's `package.json` (`yarn`)
+- determines whether the Node version in question is supported by each dependency
 
-# gets a list of your top-level dependencies. we use
-# this because it contains the actual version of each
-# package, instead of range (like in `package.json`).
-#
-# `yarn`'s version of this command is weird right now
-# and doesn't respect the `depth` parameter, but the
-# `npm` version works with both for some reason.
-# context: https://github.com/yarnpkg/yarn/issues/3569
-npm ls --depth=0 --json
+If run with the CLI, you can receive your data in the following formats:
+- table (printed to the console)
+- json (written to the CWD)
+- html (written to the CWD)
 
-# this fetches the `package.json` of a dependency and
-# returns the `engines` field, which is used to specify
-# what `node` version it supports, among other things.
-# it isn't a required field, so it's not always present.
-npm view <package-name>@<version> engines --json
-# or
-yarn info <package-name>@<version> engines --json
-```
-
-The project is split into two directories -- `queries`, where the `npm`/`yarn` commands live along with supporting modules. And `cli`, where the functionality of the CLI lives.
+The project is split into two directories -- `depngn`, where the modules for reading and parsing dependency information live. And `cli`, where the functionality of the CLI lives.
 
 ## When Submitting a Pull Request:
 
