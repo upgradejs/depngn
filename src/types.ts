@@ -10,15 +10,6 @@ export interface CompatData {
   range: string;
 }
 
-export interface PackageList {
-  [depName: string]: PackageData;
-}
-
-export interface PackageData {
-  version: string;
-  resolved: string;
-}
-
 export enum Reporter {
   Terminal = 'terminal',
   Json = 'json',
@@ -32,7 +23,6 @@ export enum PackageManagerName {
 
 export interface Manager {
   name: PackageManagerName;
-  list: string;
   lockFile: string;
 }
 
