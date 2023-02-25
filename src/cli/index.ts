@@ -13,7 +13,7 @@ export async function cli() {
     } else {
       validateArgs({ version, reporter, cwd });
       const compatData = await execWithLog(
-        'Fetching engine data',
+        'Parsing engine data',
         async () => await depngn({ version, cwd })
       );
       await createReport(compatData, version, reporter);
