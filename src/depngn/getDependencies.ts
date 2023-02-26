@@ -1,4 +1,4 @@
-import { readFromFile } from '../utils';
+import { readJsonFile } from '../utils';
 import { PackageJson } from '../types';
 
 const AUTO_EXCLUDE = [
@@ -9,7 +9,7 @@ const AUTO_EXCLUDE = [
 export async function getDependencies(): Promise<Array<string>> {
   try {
     const cwd = process.cwd();
-    const pkg = await readFromFile<PackageJson>(cwd, 'package.json');
+    const pkg = await readJsonFile<PackageJson>(cwd, 'package.json');
     if (!pkg) {
       throw new Error(`Unable to find package.json in ${cwd}`);
     }

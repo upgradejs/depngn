@@ -12,13 +12,11 @@ export async function cli() {
       createUsage();
     } else {
       validateArgs({ version, reporter, cwd });
-      console.time('depngn');
       const compatData = await execWithLog(
         'Parsing engine data',
         async () => await depngn({ version, cwd })
       );
       await createReport(compatData, version, reporter);
-      console.timeEnd('depngn');
     }
   } catch (error) {
     console.error(error);
