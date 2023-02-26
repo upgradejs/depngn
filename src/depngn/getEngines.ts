@@ -1,3 +1,6 @@
+import { getDependencies } from './getDependencies';
+import { getPackageManager } from './getPackageManager';
+import { readJsonFile } from '../utils';
 import {
   EnginesDataArray,
   Manager,
@@ -5,9 +8,6 @@ import {
   PackageLock,
   PackageManagerName,
 } from '../types';
-import { readFromFile } from '../utils';
-import { getDependencies } from './getDependencies';
-import { getPackageManager } from './getPackageManager';
 
 export async function getEngines(): Promise<EnginesDataArray> {
   try {
@@ -32,7 +32,7 @@ export async function getEngines(): Promise<EnginesDataArray> {
 }
 
 async function getNpmEngines(deps: Array<string>, manager: Manager) {
-  const pkgLock = await readFromFile<PackageLock>(
+  const pkgLock = await readJsonFile<PackageLock>(
     process.cwd(),
     manager.lockFile
   );
@@ -40,9 +40,9 @@ async function getNpmEngines(deps: Array<string>, manager: Manager) {
   // `npm` version 7 onwards uses lockfileVersion: 2
   // it's JSON keys are named using the full file path.
   // in lockfileVersion: 1, it was just the name of the package
-  const pathPrefix = lockFileVersion === 2 ? 'node_modules/' : '';
+  const prefix = lockFileVersion === 2 ? 'node_modules/' : '';
   return deps.map((dep) => {
-    const range = pkgLock.packages[`${pathPrefix}${dep}`]?.engines?.node || '';
+    const range = pkgLock.packages[`${prefix}${dep}`]?.engines?.node || '';
     return {
       package: dep,
       range,
@@ -57,7 +57,7 @@ async function getYarnEngines(deps: Array<string>) {
   // still faster than fetching from `npm`
   return await Promise.all(
     deps.map(async (dep) => {
-      const pkg = await readFromFile<PackageJson>(
+      const pkg = await readJsonFile<PackageJson>(
         cwd,
         'node_modules',
         dep,

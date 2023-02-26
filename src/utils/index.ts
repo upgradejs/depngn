@@ -14,6 +14,8 @@ export const access = promisify(syncAccess);
 export const asyncExec = promisify(exec);
 export const writeFile = promisify(syncWriteFile);
 
-export const readFromFile = async <T>(...filepath: Array<string>): Promise<T> => {
+export const readJsonFile = async <T>(...filepath: Array<string>): Promise<T> => {
+  // TypeScript automatically parses JSON imports for us 
+  // when we set `resolveJsonModules: true` in `tsconfig.json`
   return await require(path.resolve(...filepath));
 };
