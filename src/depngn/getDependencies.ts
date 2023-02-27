@@ -10,9 +10,6 @@ export async function getDependencies(): Promise<Array<string>> {
   try {
     const cwd = process.cwd();
     const pkg = await readJsonFile<PackageJson>(cwd, 'package.json');
-    if (!pkg) {
-      throw new Error(`Unable to find package.json in ${cwd}`);
-    }
     const deps = Object.keys(pkg.dependencies || {});
     const devDeps = Object.keys(pkg.devDependencies || {});
     const peerDeps = Object.keys(pkg.peerDependencies || {});
@@ -21,6 +18,10 @@ export async function getDependencies(): Promise<Array<string>> {
       (dep) => !AUTO_EXCLUDE.includes(dep)
     );
   } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      const cwd = process.cwd();
+      throw new Error(`Unable to find package.json in ${cwd}`); 
+    }
     throw error;
   }
 }
