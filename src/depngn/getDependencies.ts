@@ -11,7 +11,7 @@ export async function getDependencies(): Promise<Array<string>> {
     const cwd = process.cwd();
     const pkg = await readJsonFile<PackageJson>(cwd, 'package.json');
     if (!pkg) {
-      throw new Error(`Unable to find package.json in ${process.cwd()}`);
+      throw new Error(`Unable to find package.json in ${cwd}`);
     }
     const deps = Object.keys(pkg.dependencies || {});
     const devDeps = Object.keys(pkg.devDependencies || {});
