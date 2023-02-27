@@ -36,11 +36,10 @@ async function getNpmEngines(deps: Array<string>, manager: Manager) {
     process.cwd(),
     manager.lockFile
   );
-  const lockFileVersion = pkgLock.lockfileVersion;
   // `npm` version 7 onwards uses lockfileVersion: 2
   // it's JSON keys are named using the full file path.
   // in lockfileVersion: 1, it was just the name of the package
-  const prefix = lockFileVersion === 2 ? 'node_modules/' : '';
+  const prefix = pkgLock.lockfileVersion === 2 ? 'node_modules/' : '';
   return deps.map((dep) => {
     const range = pkgLock.packages[`${prefix}${dep}`]?.engines?.node || '';
     return {
