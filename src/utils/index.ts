@@ -1,4 +1,3 @@
-import { exec } from 'child_process';
 import { promisify } from 'util';
 import { writeFile as syncWriteFile, access as syncAccess } from 'fs';
 import path from 'path';
