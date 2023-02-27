@@ -3,7 +3,7 @@ import { createTable} from './table';
 import { CompatData, Reporter } from '../../types';
 import { createHtml } from './html';
 
-export function createReport(
+export async function createReport(
   compatData: Record<string, CompatData>,
   version: string,
   reporter: Reporter
@@ -12,9 +12,9 @@ export function createReport(
     case Reporter.Terminal:
       return createTable(compatData, version);
     case Reporter.Json:
-      return createJson(compatData, version);
+      return await createJson(compatData, version);
     case Reporter.Html:
-      return createHtml(compatData, version);
+      return await createHtml(compatData, version);
     default:
       const wrong = reporter as never;
       throw new Error(

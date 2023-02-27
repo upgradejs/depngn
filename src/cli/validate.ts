@@ -28,5 +28,9 @@ function validateReporter(reporter: string) {
 }
 
 function validateCwd(cwd: string) {
-  fs.existsSync(cwd);
+  if (!fs.existsSync(cwd)) {
+    throw new Error(
+      `Invalid cwd: ${red(cwd)}. This directory does not exist.`
+    )
+  }
 }
