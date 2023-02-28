@@ -1,5 +1,5 @@
-import { validateArgs } from '../../src/cli/validate';
-import { Reporter } from '../../src/types';
+import { validateArgs } from '../../../src/cli/validate';
+import { Reporter } from '../../../src/types';
 import { green, red } from 'kleur/colors';
 
 describe('validate', () => {

@@ -1,10 +1,10 @@
-import { getPackageManager } from '../../../src/depngn/getPackageManager';
+import { getPackageManager } from '../../../../src/depngn/getPackageManager';
 import path from 'path';
-import { PackageManagerName } from '../../../src/types';
+import { PackageManagerName } from '../../../../src/types';
 
-const npmDir = 'tests/depngn/getPackageManager/npm';
-const yarnDir = 'tests/depngn/getPackageManager/yarn';
-const testDir = 'tests/depngn/getPackageManager';
+const npmDir = 'tests/unit/depngn/getPackageManager/mocks/npm';
+const yarnDir = 'tests/unit/depngn/getPackageManager/mocks/yarn';
+const testDir = 'tests/unit/depngn/getPackageManager';
 
 const originalCwd = process.cwd();
 

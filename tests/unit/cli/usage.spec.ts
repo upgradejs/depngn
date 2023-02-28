@@ -1,4 +1,4 @@
-import { createUsage } from '../../src/cli/usage';
+import { createUsage } from '../../../src/cli/usage';
 
 describe('createUsage', () => {
   it('uses console.log', () => {

@@ -1,4 +1,4 @@
-import { getPackageData } from '../../../src/depngn/getPackageData';
+import { getPackageData } from '../../../../src/depngn/getPackageData';
 
 describe('getPackageData', () => {
   it('has correct output when package is compatible', async () => {

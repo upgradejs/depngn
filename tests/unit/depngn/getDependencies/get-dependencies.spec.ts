@@ -1,8 +1,8 @@
-import { getDependencies } from '../../../src/depngn/getDependencies';
+import { getDependencies } from '../../../../src/depngn/getDependencies';
 import path from 'path';
 
-const withPackageTestDir = 'tests/depngn/getDependencies/withPackageJson';
-const withoutPackageTestDir = 'tests/depngn/getDependencies/withoutPackageJson';
+const withPackageTestDir = 'tests/unit/depngn/getDependencies/mocks/withPackageJson';
+const withoutPackageTestDir = 'tests/unit/depngn/getDependencies/mocks/withoutPackageJson';
 
 const originalCwd = process.cwd();
 

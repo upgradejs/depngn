@@ -1,8 +1,8 @@
-import { getEngines } from '../../../src/depngn/getEngines';
+import { getEngines } from '../../../../src/depngn/getEngines';
 import path from 'path';
 
-const npmDir = 'tests/depngn/getEngines/npm';
-const yarnDir = 'tests/depngn/getEngines/yarn';
+const npmDir = 'tests/unit/depngn/getEngines/mocks/npm';
+const yarnDir = 'tests/unit/depngn/getEngines/mocks/yarn';
 const lockfileVersion1 = `${npmDir}/lockfileVersion1`;
 const lockfileVersion2 = `${npmDir}/lockfileVersion2`;
 

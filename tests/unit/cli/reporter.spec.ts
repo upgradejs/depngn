@@ -1,8 +1,6 @@
-import { createReport } from '../../src/cli/reporter';
-import { expect } from '@jest/globals';
-import type { MatcherContext, MatcherFunction } from 'expect';
-import { Reporter } from '../../src/types';
-import { writeFile } from '../../src/utils';
+import { createReport } from '../../../src/cli/reporter';
+import { Reporter } from '../../../src/types';
+import { writeFile } from '../../../src/utils';
 import { table } from 'table';
 import { blue, green, red, yellow } from 'kleur/colors';
 
@@ -21,7 +19,7 @@ const mockCompatData = {
   },
 };
 
-jest.mock('../../src/utils', () => ({
+jest.mock('../../../src/utils', () => ({
   writeFile: jest.fn(),
 }));
 

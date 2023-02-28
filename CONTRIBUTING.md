@@ -34,7 +34,7 @@ The project is split into two directories -- `depngn`, where the modules for rea
 
 ## Tests
 
-Tests live in the aptly named `tests` directory. Some tests require reading from the filesystem and so we've added some mock directories with/without expected files so we can test functions. Inside `tests/depngn` you'll see some directories that contain mock directories with `package.json`, `package-lock.json`, or `yarn.lock` files that are set up for specific test cases. If you are adding tests for `getDepdencies` or `getEngines`, you may need to add a new mock directory and use `process.chdir` to make sure the function is being executed inside it.
+Tests live in the aptly named `tests` directory (which is split into `unit` and `integration` directories). Some tests require reading from the filesystem and so we've added some mock directories with/without expected files so we can test functions. Inside `tests/depngn` you'll see some directories that contain a `mocks` directory with `package.json`, `package-lock.json`, or `yarn.lock` files that are set up for specific test cases. If you are adding tests for `getDepdencies` or `getEngines`, you may need to add a new directory inside `mocks` and use `process.chdir` to make sure the function is being executed inside it.
 
 ```typescript
 const passingCaseDir = 'tests/depngn/path/to/test/dir';
