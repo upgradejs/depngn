@@ -1,5 +1,3 @@
-import { getDependencies } from './getDependencies';
-import { getPackageManager } from './getPackageManager';
 import { readJsonFile } from '../utils';
 import {
   EnginesDataArray,
@@ -9,10 +7,8 @@ import {
   PackageManagerName,
 } from '../types';
 
-export async function getEngines(): Promise<EnginesDataArray> {
+export async function getEngines(deps: Array<string>, manager: Manager): Promise<EnginesDataArray> {
   try {
-    const manager = await getPackageManager();
-    const deps = await getDependencies();
     switch (manager.name) {
       case PackageManagerName.Npm:
         return await getNpmEngines(deps, manager);
