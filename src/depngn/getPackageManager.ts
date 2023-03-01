@@ -1,7 +1,7 @@
 import { access } from '../utils';
 import { Manager, PackageManagerName } from '../types';
 
-const MANAGERS: Record<string, Manager> = {
+export const MANAGERS: Record<string, Manager> = {
   [PackageManagerName.Npm]: {
     name: PackageManagerName.Npm,
     lockFile: 'package-lock.json',
