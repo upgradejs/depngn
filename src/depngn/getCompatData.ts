@@ -1,8 +1,8 @@
+import { getDependencies } from './getDependencies';
 import { getEngines } from './getEngines';
 import { getPackageData } from './getPackageData';
-import { CompatData, EnginesDataArray } from '../types';
-import { getDependencies } from './getDependencies';
 import { getPackageManager } from './getPackageManager';
+import { CompatData, EnginesDataArray } from '../types';
 
 export async function getCompatData(version: string) {
   const manager = await getPackageManager();
