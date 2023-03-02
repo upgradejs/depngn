@@ -24,7 +24,7 @@ function safeSatisfies(nodeVersion: string, range: string) {
   return (
     range
       .split(' ')
-      // filter out any whitespace we may have missed with the RegEx -- ie, `'>=4.2.0    8.0.0'`
+      // filter out any whitespace we may have missed with the RegEx -- ie, `'>4   <8'`
       .filter((r) => !!r)
       .every((r) => satisfies(nodeVersion, r))
   );
@@ -38,7 +38,13 @@ function safeSatisfies(nodeVersion: string, range: string) {
 // it also ensures there's only one space in logical `AND` ranges
 // ie, '>=1.2.9 <2.0.0', because we want to split those later
 function removeWhitespace(range: string) {
-  const extraSpaceRegEx =
-    /((?<=(<|>))(\s+)(?=(=)))|(?<=(<|>|=|\^|~))(\s+)(?=\d)|((?<=(\d|\.|\*|x|X))(\s+)(?=(\d|\.|\*|x|X)))|(?<=\d)(\s+)(?=\s<|>)/g;
-  return range.trim().replace(extraSpaceRegEx, '');
+  const comparatorWhitespace = /((?<=(<|>))(\s+)(?=(=)))/g;
+  const comparatorAndVersionWhiteSpace = /(?<=(<|>|=|\^|~))(\s+)(?=\d)/g;
+  const remainingRange =
+    /(((\d\s*){1,3})\.\s*(\d\s*){1,3}\.\s*((0\s*)|(\d\s*){1,2})(?!(((<|>)=?)|~|^)?(((\d\s*){1,3})\.)|(\d)))/g;
+  return range
+    .trim()
+    .replace(comparatorWhitespace, '')
+    .replace(comparatorAndVersionWhiteSpace, '')
+    .replace(remainingRange, (match: string) => match.replace(/\s+/g, ''));
 }
