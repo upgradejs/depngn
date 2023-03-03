@@ -1,10 +1,10 @@
-import { getEngines } from '../../../../src/depngn/getEngines';
-import { MANAGERS } from '../../../../src/depngn/getPackageManager';
+import { getEngines } from '../../../../src/core/getEngines';
+import { MANAGERS } from '../../../../src/core/getPackageManager';
 import path from 'path';
 import { PackageManagerName } from '../../../../src/types';
 
-const npmDir = 'tests/unit/depngn/getEngines/mocks/npm';
-const yarnDir = 'tests/unit/depngn/getEngines/mocks/yarn';
+const npmDir = 'tests/unit/core/getEngines/mocks/npm';
+const yarnDir = 'tests/unit/core/getEngines/mocks/yarn';
 const lockfileVersion1 = `${npmDir}/lockfileVersion1`;
 const lockfileVersion2 = `${npmDir}/lockfileVersion2`;
 
