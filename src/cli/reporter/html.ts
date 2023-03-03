@@ -1,11 +1,15 @@
 import { writeFile } from 'fs/promises';
 import { CompatData } from '../../types';
 
-export async function createHtml(compatData: Record<string, CompatData>, version: string, path: string = 'compat.html') {
+export async function createHtml(
+  compatData: Record<string, CompatData>,
+  version: string,
+  path: string = 'compat.html'
+) {
   const compatDataKeys = Object.keys(compatData);
-  const classGreen = "green";
-  const classRed = "red";
-  const classYellow = "yellow";
+  const classGreen = 'green';
+  const classRed = 'red';
+  const classYellow = 'yellow';
 
   const style = `
   h1{
@@ -32,21 +36,26 @@ export async function createHtml(compatData: Record<string, CompatData>, version
   }
   .${classYellow}{
     color: #ce8d02;
-  }`
+  }`;
 
   const tableData = compatDataKeys
     .map((key) => {
       const compatible = compatData[key].compatible;
-      const compatibleClass = compatible === undefined ? classYellow : compatible ? classGreen : classRed;
+      const compatibleClass =
+        compatible === undefined || compatible === 'invalid'
+          ? classYellow
+          : compatible
+          ? classGreen
+          : classRed;
       return `
         <tr>
           <td>${key}</td>
           <td class="${compatibleClass}">${compatible}</td>
           <td>${compatData[key].range}</td>
         </tr>
-        `
+        `;
     })
-    .join("");
+    .join('');
 
   const out = `<!DOCTYPE html>
   <html lang="en">
@@ -67,7 +76,7 @@ export async function createHtml(compatData: Record<string, CompatData>, version
       ${tableData}
     </table> 
   </body>
-  </html>`
+  </html>`;
 
   await writeFile(path, out);
   console.log(`File generated at ${path}`);
