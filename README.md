@@ -80,7 +80,7 @@ And it returns a promise that resolves to:
 type DepngnReturn = Record<string, CompatData>;
 
 interface CompatData {
-  compatible: boolean | undefined;
+  compatible: boolean | 'invalid' | undefined;
   range: string;
 }
 ```
@@ -93,6 +93,15 @@ import { depngn } from 'depngn';
 const generateReport = async () => {
   return await depngn({ version: '10.0.0' });
 };
+```
+
+There's also a chance there *is* an `engines` field specified in the package, but the range is invalid in some way. Since RegEx for SemVer can be tricky, we return the folling, if that's the case:
+
+```javascript
+{
+  compatible: 'invalid',
+  range: '1 .2 . 0not-a-valid-range'
+}
 ```
 
 ## Supported Package Managers
