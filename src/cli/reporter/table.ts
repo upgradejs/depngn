@@ -22,7 +22,7 @@ export function createTable(compatData: Record<string, CompatData>, version: str
 }
 
 function toColorString(value: boolean | 'invalid' | undefined) {
-  if (value === undefined || value === 'invalid') return yellow('undefined');
+  if (value === undefined || value === 'invalid') return yellow(`${value}`);
   const outputColor = value ? green : red;
   return outputColor(value.toString());
 }
