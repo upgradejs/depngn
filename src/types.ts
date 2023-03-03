@@ -6,7 +6,7 @@ export interface EnginesData {
 export type EnginesDataArray = Array<EnginesData>;
 
 export interface CompatData {
-  compatible: boolean | undefined;
+  compatible: boolean | 'invalid' | undefined;
   range: string;
 }
 
