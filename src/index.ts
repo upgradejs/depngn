@@ -1,1 +1,1 @@
-export { depngn } from './depngn';
+export { depngn } from './core';
