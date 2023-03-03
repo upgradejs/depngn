@@ -42,7 +42,7 @@ export async function createHtml(
     .map((key) => {
       const compatible = compatData[key].compatible;
       const compatibleClass =
-        compatible === undefined
+        compatible === undefined || compatible === 'invalid'
           ? classYellow
           : compatible
           ? classGreen
