@@ -45,17 +45,23 @@ export interface PackageLock {
   packages: Record<string, PackageInfo>;
 }
 
+interface RecursiveJsonObject {
+  [key: string]: string | RecursiveJsonObject;
+}
+
 export interface PackageJson {
   name: string;
   version: string;
   description?: string;
-  author?: string | { name: string };
+  homepage?: string;
+  author?: string | { name: string; email: string; url: string };
+  funding?: string | { type: string; url: string } | Array<string | { type: string; url: string }>;
   license?: string;
   bugs?: string | { email: string; url: string };
   repository?:
     | string
     | {
-        type?: 'git';
+        type?: string;
         url?: string;
         directory?: string;
       };
@@ -64,13 +70,22 @@ export interface PackageJson {
   main?: string;
   module?: string;
   exports?: Record<string, string> | Record<string, Record<string, string>>;
-  bin?: Record<string, string>;
+  bin?: string | Record<string, string>;
+  browser?: string;
   files?: Array<string>;
   scripts?: Record<string, string>;
   engines?: Record<string, string>;
+  os?: Array<string>;
+  cpu?: Array<string>;
+  private?: boolean;
+  workspaces?: Array<string>;
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
+  peerDependenciesMeta?: RecursiveJsonObject;
+  optionalDependencies?: Record<string, string>;
+  overrides?: RecursiveJsonObject;
+  resolutions?: RecursiveJsonObject;
 }
 
 export interface Options {
