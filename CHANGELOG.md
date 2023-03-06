@@ -1,6 +1,8 @@
 # main (unreleased)
-
+-[[feature]: add tests](https://github.com/upgradejs/depngn/pull/40)
 -[[feature]: refactor `depngn` internals to read files directly, instead of using `npm`/`yarn` commands](https://github.com/upgradejs/depngn/pull/39)
+-[[bugfix]: filter out `__ngcc_entry_points__.json` file](https://github.com/upgradejs/depngn/pull/38)
+-[[bugfix]: remove whitespace from certain malformed version ranges](https://github.com/upgradejs/depngn/pull/37)
 -[[bugfix]: support Node versions 10-14](https://github.com/upgradejs/depngn/pull/35)
 
 # 0.3.0
