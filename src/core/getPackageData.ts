@@ -15,9 +15,9 @@ function isCompatible(nodeVersion: string, depRange: string) {
 
   try {
     return depRange
-    .split('||')
-    .map((range) => removeWhitespace(range))
-    .some((range) => safeSatisfies(nodeVersion, range));
+      .split('||')
+      .map((range) => removeWhitespace(range))
+      .some((range) => safeSatisfies(nodeVersion, range));
   } catch (error) {
     if ((error as Error).message.match(/Invalid argument not valid semver/)) {
       return 'invalid';

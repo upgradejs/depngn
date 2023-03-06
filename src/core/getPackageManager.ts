@@ -1,26 +1,21 @@
 import { access } from '../utils';
 import { Manager, PackageManagerName } from '../types';
 
-const PACKAGE_MANAGER: Record<string, Manager> = {
+const MANAGERS: Record<string, Manager> = {
   [PackageManagerName.Npm]: {
     name: PackageManagerName.Npm,
-    list: 'npm ls --depth=0 --json',
-    engines: 'npm view',
+    lockFile: 'package-lock.json',
   },
   [PackageManagerName.Yarn]: {
     name: PackageManagerName.Yarn,
-    // `yarn list --depth=0` is misleading and includes dependencies of dependencies
-    // for some reason, `npm ls` works with `yarn` apps?
-    // context: https://github.com/yarnpkg/yarn/issues/3569
-    list: 'npm ls --depth=0 --json',
-    engines: 'yarn info',
+    lockFile: 'yarn.lock',
   },
 };
 
 export async function getPackageManager(): Promise<Manager> {
   const managerChecks = [
-    pathExists('package-lock.json'),
-    pathExists('yarn.lock'),
+    pathExists(MANAGERS[PackageManagerName.Npm].lockFile),
+    pathExists(MANAGERS[PackageManagerName.Yarn].lockFile),
   ];
   const packageManager: PackageManagerName | undefined = await Promise.all(
     managerChecks
@@ -39,7 +34,7 @@ export async function getPackageManager(): Promise<Manager> {
       `Could not determine package manager. You may be missing a lock file or using an unsupported package manager.\nThe search was performed on the path - ${currentCwd}`
     );
   }
-  return PACKAGE_MANAGER[packageManager];
+  return MANAGERS[packageManager];
 }
 
 async function pathExists(path: string) {

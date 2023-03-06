@@ -6,7 +6,7 @@ import { CompatData, EnginesDataArray } from '../types';
 
 export async function getCompatData(version: string) {
   const manager = await getPackageManager();
-  const deps = await getDependencies(manager);
+  const deps = await getDependencies();
   const engines = await getEngines(deps, manager);
   return createCompatData(engines, version);
 }
