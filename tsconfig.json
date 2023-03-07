@@ -2,9 +2,8 @@
   "compileOnSave": true,
   "compilerOptions": {
     "target": "es5",
-    "outDir": "dist",
     "lib": [
-      "esnext"
+      "ESNext"
     ],
     "types": [
       "node",
@@ -13,16 +12,17 @@
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "./dist/types",
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -18,21 +18,18 @@ const PACKAGE_MANAGER: Record<string, Manager> = {
 };
 
 export async function getPackageManager(): Promise<Manager> {
-  const managerChecks = [
-    pathExists('package-lock.json'),
-    pathExists('yarn.lock'),
-  ];
-  const packageManager: PackageManagerName | undefined = await Promise.all(
-    managerChecks
-  ).then(([isNpm, isYarn]) => {
-    let manager: PackageManagerName | undefined;
-    if (isNpm) {
-      manager = PackageManagerName.Npm;
-    } else if (isYarn) {
-      manager = PackageManagerName.Yarn;
+  const managerChecks = [pathExists('package-lock.json'), pathExists('yarn.lock')];
+  const packageManager: PackageManagerName | undefined = await Promise.all(managerChecks).then(
+    ([isNpm, isYarn]) => {
+      let manager: PackageManagerName | undefined;
+      if (isNpm) {
+        manager = PackageManagerName.Npm;
+      } else if (isYarn) {
+        manager = PackageManagerName.Yarn;
+      }
+      return manager;
     }
-    return manager;
-  });
+  );
   if (!packageManager) {
     const currentCwd = process.cwd();
     throw new Error(

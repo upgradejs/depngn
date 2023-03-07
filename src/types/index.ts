@@ -22,12 +22,12 @@ export interface PackageData {
 export enum Reporter {
   Terminal = 'terminal',
   Json = 'json',
-  Html = 'html'
+  Html = 'html',
 }
 
 export enum PackageManagerName {
   Npm = 'npm',
-  Yarn = 'yarn'
+  Yarn = 'yarn',
 }
 
 export interface Manager {

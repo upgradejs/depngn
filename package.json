@@ -14,13 +14,14 @@
     "semver",
     "cli"
   ],
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "module": "dist/es/index.js",
+  "main": "dist/cjs/index.cjs",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/es/index.js",
+      "default": "./dist/cjs/index.cjs"
     }
   },
   "bin": {
@@ -28,12 +29,14 @@
   },
   "files": [
     "dist",
-    "bin"
+    "src"
   ],
   "scripts": {
     "predev": "npm run build",
     "dev": "./bin/depngn.cjs",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "tsc && rollup -c rollup.config.js",
     "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch"

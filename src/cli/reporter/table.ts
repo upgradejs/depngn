@@ -3,9 +3,7 @@ import { table, TableUserConfig } from 'table';
 import { CompatData } from '../../types';
 
 export function createTable(compatData: Record<string, CompatData>, version: string) {
-  const titles = ['package', 'compatible', 'range'].map((title) =>
-    blue(title)
-  );
+  const titles = ['package', 'compatible', 'range'].map((title) => blue(title));
   const out = Object.keys(compatData).map((dep) => {
     const { compatible, range } = compatData[dep];
     return [dep, toColorString(compatible), range];

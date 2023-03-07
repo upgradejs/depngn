@@ -12,6 +12,7 @@ dist
 *dist
 dist-ssr
 *.local
+types
 
 # Editor directories and files
 .vscode/*
@@ -25,4 +26,4 @@ dist-ssr
 *.sw?
 
 # testing
-coverage/
+coverage

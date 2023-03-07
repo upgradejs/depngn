@@ -1,7 +1,7 @@
 import { validate } from 'compare-versions';
 import { green, red } from 'kleur/colors';
-import fs from "fs";
-import { CliParsedOptions } from "../types";
+import fs from 'fs';
+import { CliParsedOptions } from '../types';
 
 const REPORTERS = ['terminal', 'json', 'html'];
 
@@ -20,9 +20,7 @@ function validateNodeVersion(nodeVersion: string) {
 function validateReporter(reporter: string) {
   if (!REPORTERS.includes(reporter)) {
     throw new Error(
-      `Invalid reporter: ${red(reporter)}. Valid options are: ${green(
-        REPORTERS.join(', ')
-      )}.`
+      `Invalid reporter: ${red(reporter)}. Valid options are: ${green(REPORTERS.join(', '))}.`
     );
   }
 }

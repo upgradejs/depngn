@@ -7,20 +7,15 @@ const AUTO_EXCLUDE = [
 ];
 
 export async function getDependencies(manager: Manager): Promise<PackageList> {
-  try {
-    const list = await asyncExec(manager.list);
-    const parsedList = JSON.parse(list.stdout).dependencies;
-    return Object.keys(parsedList)
-    .reduce((acc, curr) => {
-      if (AUTO_EXCLUDE.includes(curr)) {
-        return acc;
-      }
-      return {
-        ...acc,
-        [curr]: parsedList[curr],
-      }
-    }, {});
-  } catch (error) {
-    throw error;
-  }
+  const list = await asyncExec(manager.list);
+  const parsedList = JSON.parse(list.stdout).dependencies;
+  return Object.keys(parsedList).reduce((acc, curr) => {
+    if (AUTO_EXCLUDE.includes(curr)) {
+      return acc;
+    }
+    return {
+      ...acc,
+      [curr]: parsedList[curr],
+    };
+  }, {});
 }
