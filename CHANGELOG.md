@@ -1,5 +1,6 @@
 # main (unreleased)
 
+-[[feature]: refactor configuration files to export the types and declaration](https://github.com/upgradejs/depngn/pull/41)
 -[[feature]: refactor `depngn` internals to read files directly, instead of using `npm`/`yarn` commands](https://github.com/upgradejs/depngn/pull/39)
 -[[bugfix]: support Node versions 10-14](https://github.com/upgradejs/depngn/pull/35)
 
