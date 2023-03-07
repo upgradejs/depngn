@@ -19,7 +19,7 @@ export function createTable(compatData: Record<string, CompatData>, version: str
   console.log(table(out, config));
 }
 
-function toColorString(value: boolean | string | undefined) {
+function toColorString(value: boolean | 'invalid' | undefined) {
   if (value === undefined || value === 'invalid') return yellow(`${value}`);
   const outputColor = value ? green : red;
   return outputColor(value.toString());
