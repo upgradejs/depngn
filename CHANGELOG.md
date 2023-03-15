@@ -1,10 +1,13 @@
 # main (unreleased)
 
--[[feature]: refactor `depngn` internals to read files directly, instead of using `npm`/`yarn` commands](https://github.com/upgradejs/depngn/pull/39)
--[[bugfix]: support Node versions 10-14](https://github.com/upgradejs/depngn/pull/35)
+# 0.4.0
+- [[feature]: refactor `depngn` internals to read files directly, instead of using `npm`/`yarn` commands](https://github.com/upgradejs/depngn/pull/39)
+- [[bugfix]: filter out `__ngcc_entry_points__.json` file](https://github.com/upgradejs/depngn/pull/38)
+- [[bugfix]: remove whitespace from certain malformed version ranges](https://github.com/upgradejs/depngn/pull/37)
+- [[bugfix]: support Node versions 10-14](https://github.com/upgradejs/depngn/pull/35)
 
 # 0.3.0
--[[feature]: add the ability to perform the check in the specified path using --cwd option](https://github.com/upgradejs/depngn/pull/30)
+- [[feature]: add the ability to perform the check in the specified path using `--cwd` option](https://github.com/upgradejs/depngn/pull/30)
 
 # 0.2.0
 - [[feature]: add links to the GitHub repo to be able to navigate from the npm package page](https://github.com/upgradejs/depngn/pull/27)

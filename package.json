@@ -1,6 +1,6 @@
 {
   "name": "depngn",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Determine the compatibility of your packages with a given Node version",
   "author": "Lewis D'Avanzo",
   "license": "MIT",
