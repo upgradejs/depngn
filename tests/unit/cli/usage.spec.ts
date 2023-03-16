@@ -1,6 +1,16 @@
 import { createUsage } from '../../../src/cli/usage';
 
+const originalConsoleLog = console.log;
+
 describe('createUsage', () => {
+  beforeEach(() => {
+    console.log = jest.fn();
+  });
+
+  afterEach(() => {
+    console.log = originalConsoleLog;
+  });
+
   it('uses console.log', () => {
     console.log = jest.fn();
     createUsage();
