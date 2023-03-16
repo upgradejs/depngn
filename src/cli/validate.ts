@@ -1,7 +1,7 @@
 import { validate } from 'compare-versions';
 import { green, red } from 'kleur/colors';
 import fs from "fs";
-import { CliParsedOptions } from "../types";
+import { CliParsedOptions } from "src/types";
 
 const REPORTERS = ['terminal', 'json', 'html'];
 

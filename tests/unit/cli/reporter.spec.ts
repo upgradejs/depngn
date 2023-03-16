@@ -1,6 +1,6 @@
-import { createReport } from '../../../src/cli/reporter';
-import { Reporter } from '../../../src/types';
-import { writeFile } from '../../../src/utils';
+import { createReport } from 'src/cli/reporter';
+import { Reporter } from 'src/types';
+import { writeFile } from 'src/utils';
 import { table } from 'table';
 import { blue, green, red, yellow } from 'kleur/colors';
 

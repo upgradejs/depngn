@@ -2,7 +2,7 @@ import { getDependencies } from './getDependencies';
 import { getEngines } from './getEngines';
 import { getPackageData } from './getPackageData';
 import { getPackageManager } from './getPackageManager';
-import { CompatData, EnginesDataArray } from '../types';
+import { CompatData, EnginesDataArray } from 'src/types';
 
 export async function getCompatData(version: string) {
   const manager = await getPackageManager();

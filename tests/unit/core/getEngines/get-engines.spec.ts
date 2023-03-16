@@ -1,7 +1,7 @@
-import { getEngines } from '../../../../src/core/getEngines';
-import { MANAGERS } from '../../../../src/core/getPackageManager';
+import { getEngines } from 'core/getEngines';
+import { MANAGERS } from 'core/getPackageManager';
 import path from 'path';
-import { PackageManagerName } from '../../../../src/types';
+import { PackageManagerName } from 'src/types';
 
 const npmDir = 'tests/unit/core/getEngines/mocks/npm';
 const yarnDir = 'tests/unit/core/getEngines/mocks/yarn';

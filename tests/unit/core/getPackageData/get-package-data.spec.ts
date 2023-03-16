@@ -1,4 +1,4 @@
-import { getPackageData } from '../../../../src/core/getPackageData';
+import { getPackageData } from 'core/getPackageData';
 
 describe('getPackageData', () => {
   it('has correct output when package is compatible', async () => {

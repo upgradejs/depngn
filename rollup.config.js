@@ -2,6 +2,14 @@ import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
+const pathAlias = {
+  alias: {
+    "src/*": "./src/*",
+    "core/*": "./src/core/*",
+    "cli/*": "./src/cli/*",
+  }
+};
+
 export default [
   {
     input: 'src/index.ts',

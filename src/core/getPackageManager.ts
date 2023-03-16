@@ -1,5 +1,5 @@
-import { access } from '../utils';
-import { Manager, PackageManagerName } from '../types';
+import { access } from 'src/utils';
+import { Manager, PackageManagerName } from 'src/types';
 
 export const MANAGERS: Record<string, Manager> = {
   [PackageManagerName.Npm]: {

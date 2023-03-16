@@ -1,6 +1,6 @@
 import { blue, green, red, yellow } from 'kleur/colors';
 import { table, TableUserConfig } from 'table';
-import { CompatData } from '../../types';
+import { CompatData } from 'src/types';
 
 export function createTable(compatData: Record<string, CompatData>, version: string) {
   const titles = ['package', 'compatible', 'range'].map((title) =>

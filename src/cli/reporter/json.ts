@@ -1,5 +1,5 @@
-import { writeFile } from '../../utils';
-import { CompatData } from '../../types';
+import { writeFile } from 'src/utils';
+import { CompatData } from 'src/types';
 
 export async function createJson(compatData: Record<string, CompatData>, version: string, path: string = 'compat.json') {
   const out = JSON.stringify({

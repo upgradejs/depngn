@@ -1,4 +1,4 @@
-import { getDependencies } from '../../../../src/core/getDependencies';
+import { getDependencies } from 'core/getDependencies';
 import path from 'path';
 
 const withPackageTestDir =

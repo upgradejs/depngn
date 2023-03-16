@@ -1,5 +1,5 @@
 import { getCompatData } from './getCompatData';
-import { Options } from "../types";
+import { Options } from "src/types";
 import path from "path";
 
 export async function depngn({ cwd, version }: Options) {

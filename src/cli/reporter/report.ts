@@ -1,7 +1,7 @@
 import { createJson } from './json';
 import { createTable} from './table';
-import { CompatData, Reporter } from '../../types';
 import { createHtml } from './html';
+import { CompatData, Reporter } from 'src/types';
 
 export async function createReport(
   compatData: Record<string, CompatData>,

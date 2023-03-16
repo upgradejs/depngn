@@ -1,5 +1,5 @@
-import { readJsonFile } from '../utils';
-import { PackageJson } from '../types';
+import { readJsonFile } from 'src/utils';
+import { PackageJson } from 'src/types';
 
 const AUTO_EXCLUDE = [
   // automatically added to `node_modules` in Angular projects

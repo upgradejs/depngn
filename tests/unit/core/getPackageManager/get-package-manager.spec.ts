@@ -1,6 +1,6 @@
-import { getPackageManager } from '../../../../src/core/getPackageManager';
+import { getPackageManager } from 'core/getPackageManager';
 import path from 'path';
-import { PackageManagerName } from '../../../../src/types';
+import { PackageManagerName } from 'src/types';
 
 const npmDir = 'tests/unit/core/getPackageManager/mocks/npm';
 const yarnDir = 'tests/unit/core/getPackageManager/mocks/yarn';
