@@ -21,8 +21,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"],
+      "core/*": ["src/core/*"],
+      "cli/*": ["src/cli/*"],
+    }
   },
   "include": [
-    "src"
+    "src",
+    "tests"
   ]
 }

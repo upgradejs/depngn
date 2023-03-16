@@ -95,7 +95,7 @@ const generateReport = async () => {
 };
 ```
 
-There's also a chance there *is* an `engines` field specified in the package, but the range is invalid in some way. Since RegEx for SemVer can be tricky, we return the folling, if that's the case:
+There's also a chance there *is* an `engines` field specified in the package, but the range is invalid in some way. Since RegEx for SemVer can be tricky, we return the following, if that's the case:
 
 ```javascript
 {

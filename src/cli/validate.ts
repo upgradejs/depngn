@@ -1,7 +1,7 @@
 import { validate } from 'compare-versions';
 import { green, red } from 'kleur/colors';
 import fs from "fs";
-import { CliParsedOptions } from "../types";
+import { CliParsedOptions } from "src/types";
 
 const REPORTERS = ['terminal', 'json', 'html'];
 
@@ -28,5 +28,9 @@ function validateReporter(reporter: string) {
 }
 
 function validateCwd(cwd: string) {
-  fs.existsSync(cwd);
+  if (!fs.existsSync(cwd)) {
+    throw new Error(
+      `Invalid cwd: ${red(cwd)}. This directory does not exist.`
+    )
+  }
 }

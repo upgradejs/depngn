@@ -1,4 +1,5 @@
 # main (unreleased)
+- [[feature]: add tests](https://github.com/upgradejs/depngn/pull/40)
 
 # 0.4.0
 - [[feature]: refactor `depngn` internals to read files directly, instead of using `npm`/`yarn` commands](https://github.com/upgradejs/depngn/pull/39)

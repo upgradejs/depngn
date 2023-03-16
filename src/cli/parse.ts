@@ -1,6 +1,6 @@
 import arg from 'arg';
 import { versions } from 'process';
-import { Reporter } from "../types";
+import { Reporter } from "src/types";
 
 export function parseCliArgs() {
     const args = arg({

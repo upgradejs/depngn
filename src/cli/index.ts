@@ -3,7 +3,7 @@ import { parseCliArgs } from './parse';
 import { createReport } from './reporter';
 import { createUsage } from './usage';
 import { validateArgs } from './validate';
-import { depngn } from '../';
+import { depngn } from 'src/core';
 
 export async function cli() {
   try {

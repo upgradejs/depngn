@@ -1,11 +1,11 @@
-import { readJsonFile } from '../utils';
+import { readJsonFile } from 'src/utils';
 import {
   EnginesDataArray,
   Manager,
   PackageJson,
   PackageLock,
   PackageManagerName,
-} from '../types';
+} from 'src/types';
 
 export async function getEngines(deps: Array<string>, manager: Manager): Promise<EnginesDataArray> {
   try {

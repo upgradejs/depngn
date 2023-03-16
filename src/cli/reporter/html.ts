@@ -1,5 +1,5 @@
-import { writeFile } from '../../utils';
-import { CompatData } from '../../types';
+import { writeFile } from 'src/utils';
+import { CompatData } from 'src/types';
 
 export async function createHtml(
   compatData: Record<string, CompatData>,
@@ -74,7 +74,7 @@ export async function createHtml(
         <th>range</th>
       </tr>
       ${tableData}
-    </table> 
+    </table>
   </body>
   </html>`;
 
