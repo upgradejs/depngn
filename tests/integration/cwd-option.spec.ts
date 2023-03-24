@@ -1,4 +1,4 @@
-import { depngn } from '../../src';
+import { depngn } from 'src/core';
 
 describe('cwd option', () => {
   it('possible to perform the check in the existing directory passing a relative path', async () => {

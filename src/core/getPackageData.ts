@@ -1,5 +1,5 @@
 import { satisfies } from 'compare-versions';
-import { CompatData, EnginesData } from '../types';
+import { CompatData, EnginesData } from 'src/types';
 
 export function getPackageData(dep: EnginesData, version: string): CompatData {
   const range = dep.range ? dep.range : 'n/a';

@@ -1,5 +1,5 @@
-import { readJsonFile } from '../utils';
-import { EnginesDataArray, Manager, PackageJson, PackageLock, PackageManagerName } from '../types';
+import { readJsonFile } from 'src/utils';
+import { EnginesDataArray, Manager, PackageJson, PackageLock, PackageManagerName } from 'src/types';
 
 export async function getEngines(deps: Array<string>, manager: Manager): Promise<EnginesDataArray> {
   switch (manager.name) {

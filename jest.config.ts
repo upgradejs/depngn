@@ -20,7 +20,13 @@ export default {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['src/**/*.ts', '!src/**/index.ts', '!src/**/types.ts'],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/index.ts',
+    '!src/**/types.ts',
+    '!src/**/log.ts',
+    '!src/**/parse.ts',
+  ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -88,7 +94,11 @@ export default {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^src(.*)': '<rootDir>/src/$1',
+    '^core(.*)': '<rootDir>/src/core/$1',
+    '^cli(.*)': '<rootDir>/src/cli/$1',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],

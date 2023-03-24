@@ -1,0 +1,16 @@
+{
+  "name": "get-dependencies-spec",
+  "type": "module",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "dependencies": {
+    "test-package-1": "^1.0.0"
+  },
+  "devDependencies": {
+    "test-package-2": "^1.0.0"
+  },
+  "peerDependencies": {
+    "test-package-3": "^1.0.0"
+  }
+}

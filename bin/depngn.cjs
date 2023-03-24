@@ -2,6 +2,6 @@
 
 "use strict";
 
-const { cli } = require('../dist/cli.cjs');
+const { cli } = require('../dist/cli/index.js');
 
 cli();

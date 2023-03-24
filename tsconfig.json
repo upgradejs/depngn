@@ -12,17 +12,24 @@
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "declaration": true,
-    "outDir": "./dist/types",
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
+    "module": "commonjs",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "emitDeclarationOnly": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+      "core/*": ["./src/core/*"],
+      "cli/*": ["./src/cli/*"],
+    }
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src",
+    "tests"
+  ],
   "exclude": ["node_modules", "dist"]
 }
