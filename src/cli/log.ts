@@ -25,6 +25,9 @@ export async function execWithLog<T>(text: string, callback: () => Promise<T>) {
   }, 200);
   try {
     return await callback();
+    // eslint-disable-next-line no-useless-catch
+  } catch (error) {
+    throw error;
   } finally {
     clearInterval(loadingAnimation);
     clearLog();

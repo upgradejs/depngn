@@ -3,11 +3,23 @@ import { EnginesDataArray, Manager, PackageJson, PackageLock, PackageManagerName
 
 export async function getEngines(deps: Array<string>, manager: Manager): Promise<EnginesDataArray> {
   switch (manager.name) {
-    case PackageManagerName.Npm:
-      return await getNpmEngines(deps, manager);
+    case PackageManagerName.Npm: {
+      // eslint-disable-next-line no-useless-catch
+      try {
+        return await getNpmEngines(deps, manager);
+      } catch (error) {
+        throw error;
+      }
+    }
 
-    case PackageManagerName.Yarn:
-      return await getYarnEngines(deps);
+    case PackageManagerName.Yarn: {
+      // eslint-disable-next-line no-useless-catch
+      try {
+        return await getYarnEngines(deps);
+      } catch (error) {
+        throw error;
+      }
+    }
 
     default: {
       const wrong = manager.name as never;
