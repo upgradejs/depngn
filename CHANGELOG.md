@@ -1,4 +1,7 @@
 # main (unreleased)
+
+# 0.5.0
+- [[feature]: export types and migrate from `rollup` to `tsup` for the build purposes](https://github.com/upgradejs/depngn/pull/41)
 - [[feature]: add tests](https://github.com/upgradejs/depngn/pull/40)
 
 # 0.4.0
