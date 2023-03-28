@@ -3,8 +3,8 @@ import { green } from 'kleur/colors';
 import onExit from 'signal-exit';
 
 export async function execWithLog<T>(text: string, callback: () => Promise<T>) {
-  // this is necessary because the 
-  // cursor could remain hidden when 
+  // this is necessary because the
+  // cursor could remain hidden when
   // exited with `^C`
   onExit(() => {
     showCursor();
@@ -24,8 +24,8 @@ export async function execWithLog<T>(text: string, callback: () => Promise<T>) {
     }
   }, 200);
   try {
-    const output = await callback();
-    return output;
+    return await callback();
+    // eslint-disable-next-line no-useless-catch
   } catch (error) {
     throw error;
   } finally {

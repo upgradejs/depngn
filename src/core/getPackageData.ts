@@ -43,8 +43,5 @@ function safeSatisfies(nodeVersion: string, range: string) {
 function removeWhitespace(range: string) {
   const comparatorWhitespace = /((?<=(<|>))(\s+)(?=(=)))/g;
   const comparatorAndVersionWhiteSpace = /(?<=(<|>|=|\^|~))(\s+)(?=\d)/g;
-  return range
-    .trim()
-    .replace(comparatorWhitespace, '')
-    .replace(comparatorAndVersionWhiteSpace, '');
+  return range.trim().replace(comparatorWhitespace, '').replace(comparatorAndVersionWhiteSpace, '');
 }

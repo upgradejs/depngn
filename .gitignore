@@ -25,5 +25,5 @@ dist-ssr
 *.sw?
 
 # testing
-coverage/
+coverage
 !tests/**/node_modules

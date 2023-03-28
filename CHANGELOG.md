@@ -2,6 +2,7 @@
 - [[feature]: add tests](https://github.com/upgradejs/depngn/pull/40)
 
 # 0.4.0
+- [[feature]: refactor configuration files to export the types and declaration](https://github.com/upgradejs/depngn/pull/41)
 - [[feature]: refactor `depngn` internals to read files directly, instead of using `npm`/`yarn` commands](https://github.com/upgradejs/depngn/pull/39)
 - [[bugfix]: filter out `__ngcc_entry_points__.json` file](https://github.com/upgradejs/depngn/pull/38)
 - [[bugfix]: remove whitespace from certain malformed version ranges](https://github.com/upgradejs/depngn/pull/37)

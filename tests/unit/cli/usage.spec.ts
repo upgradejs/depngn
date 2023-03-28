@@ -32,7 +32,7 @@ describe('createUsage', () => {
 
   Example:
   depngn 12.0.0 --reporter=json
-  `
+  `;
     expect(console.log).toHaveBeenCalledWith(usage);
   });
 });

@@ -1,6 +1,6 @@
 import { getCompatData } from './getCompatData';
-import { Options } from "src/types";
-import path from "path";
+import { Options } from 'src/types';
+import path from 'path';
 
 export async function depngn({ cwd, version }: Options) {
   const originalCwd = process.cwd();
@@ -13,8 +13,6 @@ export async function depngn({ cwd, version }: Options) {
       process.chdir(path.resolve(cwd));
     }
     return await getCompatData(version);
-  } catch (error) {
-    throw new Error(`${error}`);
   } finally {
     process.chdir(originalCwd);
   }

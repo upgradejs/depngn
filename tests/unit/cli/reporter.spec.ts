@@ -19,7 +19,7 @@ const mockCompatData = {
   },
 };
 
-jest.mock('../../../src/utils', () => ({
+jest.mock('src/utils', () => ({
   writeFile: jest.fn(),
 }));
 

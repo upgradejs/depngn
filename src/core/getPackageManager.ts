@@ -17,17 +17,17 @@ export async function getPackageManager(): Promise<Manager> {
     pathExists(MANAGERS[PackageManagerName.Npm].lockFile),
     pathExists(MANAGERS[PackageManagerName.Yarn].lockFile),
   ];
-  const packageManager: PackageManagerName | undefined = await Promise.all(
-    managerChecks
-  ).then(([isNpm, isYarn]) => {
-    let manager: PackageManagerName | undefined;
-    if (isNpm) {
-      manager = PackageManagerName.Npm;
-    } else if (isYarn) {
-      manager = PackageManagerName.Yarn;
+  const packageManager: PackageManagerName | undefined = await Promise.all(managerChecks).then(
+    ([isNpm, isYarn]) => {
+      let manager: PackageManagerName | undefined;
+      if (isNpm) {
+        manager = PackageManagerName.Npm;
+      } else if (isYarn) {
+        manager = PackageManagerName.Yarn;
+      }
+      return manager;
     }
-    return manager;
-  });
+  );
   if (!packageManager) {
     const currentCwd = process.cwd();
     throw new Error(

@@ -10,7 +10,7 @@ export function createUsage() {
 
   Example:
   depngn 12.0.0 --reporter=json
-  `
+  `;
 
   console.log(usage);
 }

@@ -1,39 +1,39 @@
 import { readJsonFile } from 'src/utils';
-import {
-  EnginesDataArray,
-  Manager,
-  PackageJson,
-  PackageLock,
-  PackageManagerName,
-} from 'src/types';
+import { EnginesDataArray, Manager, PackageJson, PackageLock, PackageManagerName } from 'src/types';
 
 export async function getEngines(deps: Array<string>, manager: Manager): Promise<EnginesDataArray> {
-  try {
-    switch (manager.name) {
-      case PackageManagerName.Npm:
+  switch (manager.name) {
+    case PackageManagerName.Npm: {
+      // eslint-disable-next-line no-useless-catch
+      try {
         return await getNpmEngines(deps, manager);
-
-      case PackageManagerName.Yarn:
-        return await getYarnEngines(deps);
-
-      default:
-        const wrong = manager.name as never;
-        throw new Error(
-          `This error shouldn't happen, but somehow an invalid package manager made it through checks: ${wrong}.`
-        );
+      } catch (error) {
+        throw error;
+      }
     }
-  } catch (error) {
-    throw error;
+
+    case PackageManagerName.Yarn: {
+      // eslint-disable-next-line no-useless-catch
+      try {
+        return await getYarnEngines(deps);
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    default: {
+      const wrong = manager.name as never;
+      throw new Error(
+        `This error shouldn't happen, but somehow an invalid package manager made it through checks: ${wrong}.`
+      );
+    }
   }
 }
 
 async function getNpmEngines(deps: Array<string>, manager: Manager) {
   // at this point, we know `package-lock.json` exists
   // as that's how we determined that `npm` is the package manager
-  const pkgLock = await readJsonFile<PackageLock>(
-    process.cwd(),
-    manager.lockFile
-  );
+  const pkgLock = await readJsonFile<PackageLock>(process.cwd(), manager.lockFile);
   // `npm` version 7 onwards uses lockfileVersion: 2
   // it's JSON keys are named using the full file path.
   // in lockfileVersion: 1, it was just the name of the package
@@ -54,12 +54,7 @@ async function getYarnEngines(deps: Array<string>) {
   // still faster than fetching from `npm`
   return await Promise.all(
     deps.map(async (dep) => {
-      const pkg = await readJsonFile<PackageJson>(
-        cwd,
-        'node_modules',
-        dep,
-        'package.json'
-      );
+      const pkg = await readJsonFile<PackageJson>(cwd, 'node_modules', dep, 'package.json');
       const range = pkg?.engines?.node || '';
       return {
         package: dep,

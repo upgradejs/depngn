@@ -1,9 +1,5 @@
 import { promisify } from 'util';
-import {
-  readFile as syncReadFile,
-  writeFile as syncWriteFile,
-  access as syncAccess,
-} from 'fs';
+import { readFile as syncReadFile, writeFile as syncWriteFile, access as syncAccess } from 'fs';
 import path from 'path';
 
 // `fs/promises` is only available from Node v14 onwards
@@ -14,9 +10,7 @@ export const access = promisify(syncAccess);
 export const readFile = promisify(syncReadFile);
 export const writeFile = promisify(syncWriteFile);
 
-export const readJsonFile = async <T>(
-  ...filepath: Array<string>
-): Promise<T | undefined> => {
+export const readJsonFile = async <T>(...filepath: Array<string>): Promise<T | undefined> => {
   try {
     const resolvedPath = path.resolve(...filepath);
     const file = await readFile(resolvedPath, { encoding: 'utf-8' });

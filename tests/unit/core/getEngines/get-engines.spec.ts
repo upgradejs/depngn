@@ -20,10 +20,7 @@ describe('getEngines', () => {
   describe('reads from package-lock.json when package manager is npm', () => {
     it('and lockfileVersion is 1', async () => {
       process.chdir(path.resolve(originalCwd, lockfileVersion1));
-      const output = await getEngines(
-        mockDeps,
-        MANAGERS[PackageManagerName.Npm]
-      );
+      const output = await getEngines(mockDeps, MANAGERS[PackageManagerName.Npm]);
       expect(output).toStrictEqual([
         { package: 'test-package-1', range: '1.0.0' },
         { package: 'test-package-2', range: '' },
@@ -32,10 +29,7 @@ describe('getEngines', () => {
 
     it('and lockfileVersion is 2', async () => {
       process.chdir(path.resolve(originalCwd, lockfileVersion2));
-      const output = await getEngines(
-        mockDeps,
-        MANAGERS[PackageManagerName.Npm]
-      );
+      const output = await getEngines(mockDeps, MANAGERS[PackageManagerName.Npm]);
       expect(output).toStrictEqual([
         { package: 'test-package-1', range: '1.0.0' },
         { package: 'test-package-2', range: '' },
@@ -45,10 +39,7 @@ describe('getEngines', () => {
 
   it('reads from node_modules when package manager is yarn', async () => {
     process.chdir(path.resolve(originalCwd, yarnDir));
-    const output = await getEngines(
-      mockDeps,
-      MANAGERS[PackageManagerName.Yarn]
-    );
+    const output = await getEngines(mockDeps, MANAGERS[PackageManagerName.Yarn]);
     expect(output).toStrictEqual([
       { package: 'test-package-1', range: '1.0.0' },
       { package: 'test-package-2', range: '' },

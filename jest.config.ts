@@ -25,11 +25,11 @@ export default {
     '!src/**/index.ts',
     '!src/**/types.ts',
     '!src/**/log.ts',
-    '!src/**/parse.ts'
+    '!src/**/parse.ts',
   ],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -37,7 +37,7 @@ export default {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -95,9 +95,9 @@ export default {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    "^src(.*)": "<rootDir>/src/$1",
-    "^core(.*)": "<rootDir>/src/core/$1",
-    "^cli(.*)": "<rootDir>/src/cli/$1",
+    '^src(.*)': '<rootDir>/src/$1',
+    '^core(.*)': '<rootDir>/src/core/$1',
+    '^cli(.*)': '<rootDir>/src/cli/$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -154,7 +154,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jest-environment-node",
+  testEnvironment: 'jest-environment-node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

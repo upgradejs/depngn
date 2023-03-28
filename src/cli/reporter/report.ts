@@ -1,5 +1,5 @@
 import { createJson } from './json';
-import { createTable} from './table';
+import { createTable } from './table';
 import { createHtml } from './html';
 import { CompatData, Reporter } from 'src/types';
 
@@ -15,10 +15,11 @@ export async function createReport(
       return await createJson(compatData, version);
     case Reporter.Html:
       return await createHtml(compatData, version);
-    default:
+    default: {
       const wrong = reporter as never;
       throw new Error(
         `This error shouldn't happen, but somehow you entered an invalid reporter and it made it past the first check: ${wrong}.`
       );
+    }
   }
 }

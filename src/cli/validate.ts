@@ -1,7 +1,7 @@
 import { validate } from 'compare-versions';
 import { green, red } from 'kleur/colors';
-import fs from "fs";
-import { CliParsedOptions } from "src/types";
+import fs from 'fs';
+import { CliParsedOptions } from 'src/types';
 
 const REPORTERS = ['terminal', 'json', 'html'];
 
@@ -20,17 +20,13 @@ function validateNodeVersion(nodeVersion: string) {
 function validateReporter(reporter: string) {
   if (!REPORTERS.includes(reporter)) {
     throw new Error(
-      `Invalid reporter: ${red(reporter)}. Valid options are: ${green(
-        REPORTERS.join(', ')
-      )}.`
+      `Invalid reporter: ${red(reporter)}. Valid options are: ${green(REPORTERS.join(', '))}.`
     );
   }
 }
 
 function validateCwd(cwd: string) {
   if (!fs.existsSync(cwd)) {
-    throw new Error(
-      `Invalid cwd: ${red(cwd)}. This directory does not exist.`
-    )
+    throw new Error(`Invalid cwd: ${red(cwd)}. This directory does not exist.`);
   }
 }
