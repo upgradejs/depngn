@@ -4,6 +4,7 @@ import { createReport } from './reporter';
 import { createUsage } from './usage';
 import { validateArgs } from './validate';
 import { depngn } from 'src/core';
+import { CompatData } from 'src/types';
 
 export async function cli() {
   try {
@@ -16,7 +17,7 @@ export async function cli() {
         'Parsing engine data',
         async () => await depngn({ version, cwd })
       );
-      await createReport(compatData, version, reporter);
+      await createReport(compatData as Record<string, CompatData>, version, reporter);
     }
   } catch (error) {
     console.error(error);

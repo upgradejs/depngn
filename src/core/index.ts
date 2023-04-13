@@ -1,8 +1,9 @@
 import { getCompatData } from './getCompatData';
-import { Options } from 'src/types';
+import { ApiOptions, Reporter } from 'src/types';
 import path from 'path';
+import { createReport } from 'cli/reporter';
 
-export async function depngn({ cwd, version }: Options) {
+export async function depngn({ cwd, version, reportOutputPath }: ApiOptions) {
   const originalCwd = process.cwd();
   try {
     if (cwd && originalCwd !== cwd) {
@@ -12,7 +13,18 @@ export async function depngn({ cwd, version }: Options) {
       // to resolve the path
       process.chdir(path.resolve(cwd));
     }
-    return await getCompatData(version);
+    const compatData = await getCompatData(version);
+
+    if (!reportOutputPath) return compatData;
+
+    const isHtmlFile = reportOutputPath.endsWith('.html');
+
+    await createReport(
+      compatData,
+      version,
+      isHtmlFile ? Reporter.Html : Reporter.Json,
+      reportOutputPath
+    );
   } finally {
     process.chdir(originalCwd);
   }

@@ -88,11 +88,15 @@ export interface PackageJson {
   resolutions?: RecursiveJsonObject;
 }
 
-export interface Options {
+export interface BaseOptions {
   version: string;
   cwd?: string;
 }
 
-export interface CliParsedOptions extends Options {
+export interface CliParsedOptions extends BaseOptions {
   reporter: Reporter;
+}
+
+export interface ApiOptions extends BaseOptions {
+  reportOutputPath?: string;
 }
