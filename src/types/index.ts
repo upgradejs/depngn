@@ -101,3 +101,5 @@ export interface ApiOptions extends BaseOptions {
   reportOutputPath?: string;
   reporter?: Reporter;
 }
+
+export type CompatDataMap = Record<string, CompatData>;

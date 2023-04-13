@@ -1,7 +1,7 @@
 import { Options, build } from 'tsup';
 
 const baseCoreConfig: Options = {
-  entryPoints: ['./src/core/index.ts'],
+  entry: ['./src/core/index.ts'],
   platform: 'node',
   outDir: 'dist',
 };
@@ -18,7 +18,7 @@ Promise.all([
   }),
   build({
     ...baseCoreConfig,
-    entryPoints: ['./src/cli/index.ts'],
+    entry: ['./src/cli/index.ts'],
     outDir: 'dist/cli',
     format: 'cjs',
   }),

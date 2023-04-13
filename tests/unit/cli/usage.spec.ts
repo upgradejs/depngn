@@ -12,13 +12,11 @@ describe('createUsage', () => {
   });
 
   it('uses console.log', () => {
-    console.log = jest.fn();
     createUsage();
     expect(console.log).toHaveBeenCalledTimes(1);
   });
 
   it('returns an usage message', () => {
-    console.log = jest.fn();
     createUsage();
 
     const usage = `

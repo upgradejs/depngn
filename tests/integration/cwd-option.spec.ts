@@ -1,4 +1,5 @@
 import { depngn } from 'src/core';
+import { red } from 'kleur/colors';
 
 describe('cwd option', () => {
   it('possible to perform the check in the existing directory passing a relative path', async () => {
@@ -12,12 +13,11 @@ describe('cwd option', () => {
   });
 
   it('impossible to perform the check in the non-existing directory', async () => {
+    const cwd = './x';
     try {
-      await depngn({ version: '18.0.0', cwd: './x' });
+      await depngn({ version: '18.0.0', cwd });
     } catch (e) {
-      expect((e as Error).message).toBe(
-        `ENOENT: no such file or directory, chdir '${process.cwd()}' -> '${process.cwd()}/x'`
-      );
+      expect((e as Error).message).toBe(`Invalid cwd: ${red(cwd)}. This directory does not exist.`);
     }
   });
 

@@ -1,3 +1,4 @@
+import log from 'fancy-log';
 import { writeFile } from 'src/utils';
 import { CompatData } from 'src/types';
 
@@ -16,5 +17,5 @@ export async function createJson(
   );
 
   await writeFile(path, out);
-  console.log(`File generated at ${path}`);
+  log.info(`File generated at ${path}`);
 }
