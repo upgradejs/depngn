@@ -99,4 +99,5 @@ export interface CliParsedOptions extends BaseOptions {
 
 export interface ApiOptions extends BaseOptions {
   reportOutputPath?: string;
+  reporter?: Reporter;
 }

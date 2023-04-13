@@ -48,6 +48,7 @@
   "dependencies": {
     "arg": "^5.0.2",
     "compare-versions": "^5.0.1",
+    "fancy-log": "^2.0.0",
     "kleur": "^4.1.5",
     "table": "^6.8.0"
   },
@@ -66,6 +67,7 @@
     "rimraf": "^3.0.2",
     "signal-exit": "^3.0.7",
     "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
     "tsup": "^6.7.0",
     "typescript": "^4.8.3"
   }
