@@ -1,7 +1,6 @@
 import { ApiOptions, CompatDataMap, Reporter } from 'src/types';
 import log from 'fancy-log';
 import { createReport } from 'cli/reporter';
-
 export async function generateCompatibilityReport(
   compatData: CompatDataMap,
   { reporter, version, reportOutputPath }: ApiOptions

@@ -30,6 +30,14 @@ describe('reportOutputPath and reporter API options', () => {
     expect(reportExists).toBe(true);
   });
 
+  test('should generate an HTML report when reportOutputPath ends with .html and the path does not exist', async () => {
+    const reportOutputPath = path.join(testOutputPath, './out/report.html');
+    await depngn({ cwd, reportOutputPath, version: '18.0.0' });
+
+    const reportExists = !!(await fs.stat(reportOutputPath).catch(() => false));
+    expect(reportExists).toBe(true);
+  });
+
   test('should generate a JSON report when reportOutputPath ends with .json and reporter is not specified', async () => {
     const reportOutputPath = path.join(testOutputPath, 'report.json');
     await depngn({ cwd, reportOutputPath, version: '18.0.0' });

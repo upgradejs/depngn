@@ -1,5 +1,5 @@
 import log from 'fancy-log';
-import { writeFile } from 'src/utils';
+import { writeFileWithFolder } from 'src/utils';
 import { CompatData } from 'src/types';
 
 export async function createHtml(
@@ -79,6 +79,6 @@ export async function createHtml(
   </body>
   </html>`;
 
-  await writeFile(path, out);
+  await writeFileWithFolder(path, out);
   log.info(`File generated at ${path}`);
 }
