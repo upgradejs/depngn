@@ -5,7 +5,7 @@ import { generateCompatibilityReport } from 'core/generateCompatibilityReport';
 import { validateArgs } from 'cli/validate';
 
 export async function depngn({ cwd, reportOutputPath, reporter, version }: ApiOptions) {
-  validateArgs({ version, reporter, cwd });
+  await validateArgs({ version, reporter, cwd });
 
   const originalCwd = process.cwd();
   try {

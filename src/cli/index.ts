@@ -11,7 +11,7 @@ export async function cli() {
     if (help) {
       createUsage();
     } else {
-      validateArgs({ version, reporter, cwd });
+      await validateArgs({ version, reporter, cwd });
       await execWithLog(
         'Parsing engine data',
         async () => await depngn({ version, cwd, reportOutputPath, reporter })

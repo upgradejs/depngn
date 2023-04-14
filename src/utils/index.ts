@@ -4,6 +4,7 @@ import {
   writeFile as syncWriteFile,
   stat as syncStat,
   mkdir as syncMkdir,
+  rm as syncRm,
 } from 'fs';
 import path from 'path';
 
@@ -15,6 +16,7 @@ export const readFile = promisify(syncReadFile);
 export const writeFile = promisify(syncWriteFile);
 export const mkdir = promisify(syncMkdir);
 export const stat = promisify(syncStat);
+export const rm = promisify(syncRm);
 
 export const readJsonFile = async <T>(...filepath: Array<string>): Promise<T | undefined> => {
   try {

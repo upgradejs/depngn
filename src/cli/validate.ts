@@ -1,14 +1,14 @@
 import { validate } from 'compare-versions';
 import { green, red } from 'kleur/colors';
-import fs from 'fs';
-import { ApiOptions } from 'src/types';
+import { ApiOptions, Reporter } from 'src/types';
+import { pathExists } from 'src/utils';
 
-const REPORTERS = ['terminal', 'json', 'html'];
+const REPORTERS = [Reporter.Terminal, Reporter.Json, Reporter.Html];
 
-export function validateArgs({ version, reporter, cwd }: ApiOptions) {
+export async function validateArgs({ version, reporter, cwd }: ApiOptions) {
   validateNodeVersion(version);
   if (reporter) validateReporter(reporter);
-  if (cwd) validateCwd(cwd);
+  if (cwd) await validateCwd(cwd);
 }
 
 function validateNodeVersion(nodeVersion: string) {
@@ -17,7 +17,7 @@ function validateNodeVersion(nodeVersion: string) {
   }
 }
 
-function validateReporter(reporter: string) {
+function validateReporter(reporter: Reporter) {
   if (!REPORTERS.includes(reporter)) {
     throw new Error(
       `Invalid reporter: ${red(reporter)}. Valid options are: ${green(REPORTERS.join(', '))}.`
@@ -25,8 +25,8 @@ function validateReporter(reporter: string) {
   }
 }
 
-function validateCwd(cwd: string) {
-  if (!fs.existsSync(cwd)) {
+async function validateCwd(cwd: string) {
+  if (!(await pathExists(cwd))) {
     throw new Error(`Invalid cwd: ${red(cwd)}. This directory does not exist.`);
   }
 }

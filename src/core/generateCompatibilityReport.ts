@@ -26,7 +26,7 @@ export async function generateCompatibilityReport(
       if (reporter === Reporter.Terminal) {
         finalReporter = Reporter.Html;
         log.warn(
-          `The option \`reporter\` is set to "${reporter}" and the report output path does not end with ".html" or ".json", defaulting to ".html"`
+          `The option \`reporter\` is set to "${Reporter.Terminal}" and the report output path does not end with ".html" or ".json", defaulting to ".html"`
         );
       }
       finalPath = `${finalPath}${finalPath.endsWith('/') ? '' : '/'}compat.${finalReporter}`;

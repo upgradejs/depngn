@@ -1,9 +1,9 @@
-import { promises as fs } from 'fs';
 import path from 'path';
 import { depngn } from 'src/core';
 import { Reporter } from 'src/types';
 import { table } from 'table';
 import { blue, green, red, yellow } from 'kleur/colors';
+import { mkdir, stat, rm } from 'src/utils';
 
 jest.mock('table', () => ({
   table: jest.fn(),
@@ -14,18 +14,18 @@ describe('reportOutputPath and reporter API options', () => {
   const testOutputPath = path.join(cwd, 'testOutput');
 
   beforeEach(async () => {
-    await fs.mkdir(testOutputPath);
+    await mkdir(testOutputPath);
   });
 
   afterEach(async () => {
-    await fs.rm(testOutputPath, { recursive: true });
+    await rm(testOutputPath, { recursive: true });
   });
 
   test('should generate an HTML report when reportOutputPath ends with .html and reporter is not specified', async () => {
     const reportOutputPath = path.join(testOutputPath, 'report.html');
     await depngn({ cwd, reportOutputPath, version: '18.0.0' });
 
-    const reportExists = !!(await fs.stat(reportOutputPath).catch(() => false));
+    const reportExists = !!(await stat(reportOutputPath).catch(() => false));
 
     expect(reportExists).toBe(true);
   });
@@ -34,7 +34,7 @@ describe('reportOutputPath and reporter API options', () => {
     const reportOutputPath = path.join(testOutputPath, './out/report.html');
     await depngn({ cwd, reportOutputPath, version: '18.0.0' });
 
-    const reportExists = !!(await fs.stat(reportOutputPath).catch(() => false));
+    const reportExists = !!(await stat(reportOutputPath).catch(() => false));
     expect(reportExists).toBe(true);
   });
 
@@ -42,20 +42,20 @@ describe('reportOutputPath and reporter API options', () => {
     const reportOutputPath = path.join(testOutputPath, 'report.json');
     await depngn({ cwd, reportOutputPath, version: '18.0.0' });
 
-    const reportExists = !!(await fs.stat(reportOutputPath).catch(() => false));
+    const reportExists = !!(await stat(reportOutputPath).catch(() => false));
 
     expect(reportExists).toBe(true);
   });
 
   test('should generate a report with the specified reporter when reportOutputPath does not end with .html or .json', async () => {
     const reportOutputPath = path.join(testOutputPath, 'extra');
-    await fs.mkdir(reportOutputPath);
+    await mkdir(reportOutputPath);
     const reporter = Reporter.Json;
     await depngn({ cwd, reportOutputPath, reporter, version: '18.0.0' });
 
-    const reportExists = !!(await fs
-      .stat(`${reportOutputPath}/compat.${reporter}`)
-      .catch(() => false));
+    const reportExists = !!(await stat(`${reportOutputPath}/compat.${reporter}`).catch(
+      () => false
+    ));
 
     expect(reportExists).toBe(true);
   });
@@ -65,7 +65,7 @@ describe('reportOutputPath and reporter API options', () => {
     const reporter = Reporter.Json;
     await depngn({ cwd, reportOutputPath, reporter, version: '18.0.0' });
 
-    const reportExists = !!(await fs.stat(reportOutputPath).catch(() => false));
+    const reportExists = !!(await stat(reportOutputPath).catch(() => false));
 
     expect(reportExists).toBe(true);
   });
@@ -75,18 +75,18 @@ describe('reportOutputPath and reporter API options', () => {
     const reporter = Reporter.Html;
     await depngn({ cwd, reportOutputPath, reporter, version: '18.0.0' });
 
-    const reportExists = !!(await fs.stat(reportOutputPath).catch(() => false));
+    const reportExists = !!(await stat(reportOutputPath).catch(() => false));
 
     expect(reportExists).toBe(true);
   });
 
   test('should ignore specified reporter as terminal and fallback html', async () => {
     const reportOutputPath = path.join(testOutputPath, 'extra');
-    await fs.mkdir(reportOutputPath);
+    await mkdir(reportOutputPath);
     const reporter = Reporter.Terminal;
     await depngn({ cwd, reportOutputPath, reporter, version: '18.0.0' });
 
-    const reportExists = !!(await fs.stat(`${reportOutputPath}/compat.html`).catch(() => false));
+    const reportExists = !!(await stat(`${reportOutputPath}/compat.html`).catch(() => false));
 
     expect(reportExists).toBe(true);
   });

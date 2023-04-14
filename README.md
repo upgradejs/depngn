@@ -29,6 +29,7 @@ npx depngn 14.17.6 --reporter=json
 - `--reporter`
 - `--help`
 - `--cwd`
+- `--reportOutputPath`
 
 #### `--cwd`
 
@@ -51,6 +52,15 @@ is executed in. It uses the following format:
 }
 ```
 
+#### `--reportOutputPath`
+This allows you to specify the path where you want the report to be generated. If no path is specified, it will default to the current working directory.
+There are a few things to note:
+- If the path you specify doesn't exist, it will be created
+- If the path includes a file name, the file name will be used as the name of the report file. The report type will be determined by the extension of the file name, and it supouse to be one of the following: `.html`, `.json`
+- If the path doesn't include an extension, it will default to `.html` (if the `--reporter` is set to `html` or not specified at all) or `.json` (if the `--reporter` is set to `json`)
+- If both `--reporter` and `--reportOutputPath` are specified, the `--reporter` option will be ignored in case the `--reportOutputPath` includes a file name with the extension
+
+
 ### A Note on The Engines Field
 
 The `engines` field in `package.json` is optional and many libraries don't include it. If that's the case, the output for that package will be:
@@ -71,6 +81,8 @@ tools. It takes an object as an argument:
 interface Options {
   version: string;
   cwd: string | undefined;
+  reportOutputPath: string | undefined;
+  reporter: 'terminal' | 'html' | 'json' | undefined;
 }
 ```
 
