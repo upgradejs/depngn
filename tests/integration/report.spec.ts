@@ -1,15 +1,16 @@
 import path from 'path';
-import { depngn } from 'src/core';
+import { report } from 'src/report';
 import { Reporter } from 'src/types';
 import { table } from 'table';
 import { blue, green, red, yellow } from 'kleur/colors';
 import { mkdir, stat, rm } from 'src/utils';
+import compatData from './mocks/compat-data';
 
 jest.mock('table', () => ({
   table: jest.fn(),
 }));
 
-describe('reportOutputPath and reporter API options', () => {
+describe('report', () => {
   const cwd = process.cwd();
   const testOutputPath = path.join(cwd, 'testOutput');
 
@@ -23,7 +24,7 @@ describe('reportOutputPath and reporter API options', () => {
 
   test('should generate an HTML report when reportOutputPath ends with .html and reporter is not specified', async () => {
     const reportOutputPath = path.join(testOutputPath, 'report.html');
-    await depngn({ cwd, reportOutputPath, version: '18.0.0' });
+    await report(compatData, { reportOutputPath, version: '18.0.0' });
 
     const reportExists = !!(await stat(reportOutputPath).catch(() => false));
 
@@ -32,7 +33,7 @@ describe('reportOutputPath and reporter API options', () => {
 
   test('should generate an HTML report when reportOutputPath ends with .html and the path does not exist', async () => {
     const reportOutputPath = path.join(testOutputPath, './out/report.html');
-    await depngn({ cwd, reportOutputPath, version: '18.0.0' });
+    await report(compatData, { reportOutputPath, version: '18.0.0' });
 
     const reportExists = !!(await stat(reportOutputPath).catch(() => false));
     expect(reportExists).toBe(true);
@@ -40,7 +41,7 @@ describe('reportOutputPath and reporter API options', () => {
 
   test('should generate a JSON report when reportOutputPath ends with .json and reporter is not specified', async () => {
     const reportOutputPath = path.join(testOutputPath, 'report.json');
-    await depngn({ cwd, reportOutputPath, version: '18.0.0' });
+    await report(compatData, { reportOutputPath, version: '18.0.0' });
 
     const reportExists = !!(await stat(reportOutputPath).catch(() => false));
 
@@ -51,7 +52,7 @@ describe('reportOutputPath and reporter API options', () => {
     const reportOutputPath = path.join(testOutputPath, 'extra');
     await mkdir(reportOutputPath);
     const reporter = Reporter.Json;
-    await depngn({ cwd, reportOutputPath, reporter, version: '18.0.0' });
+    await report(compatData, { reportOutputPath, reporter, version: '18.0.0' });
 
     const reportExists = !!(await stat(`${reportOutputPath}/compat.${reporter}`).catch(
       () => false
@@ -63,7 +64,7 @@ describe('reportOutputPath and reporter API options', () => {
   test('should generate a report with the reporter matching the file extension when both reporter and reportOutputPath are specified', async () => {
     const reportOutputPath = path.join(testOutputPath, 'report.json');
     const reporter = Reporter.Json;
-    await depngn({ cwd, reportOutputPath, reporter, version: '18.0.0' });
+    await report(compatData, { reportOutputPath, reporter, version: '18.0.0' });
 
     const reportExists = !!(await stat(reportOutputPath).catch(() => false));
 
@@ -73,7 +74,7 @@ describe('reportOutputPath and reporter API options', () => {
   test('should ignore specified reporter when it does not match the file extension in reportOutputPath', async () => {
     const reportOutputPath = path.join(testOutputPath, 'report.json');
     const reporter = Reporter.Html;
-    await depngn({ cwd, reportOutputPath, reporter, version: '18.0.0' });
+    await report(compatData, { reportOutputPath, reporter, version: '18.0.0' });
 
     const reportExists = !!(await stat(reportOutputPath).catch(() => false));
 
@@ -84,7 +85,7 @@ describe('reportOutputPath and reporter API options', () => {
     const reportOutputPath = path.join(testOutputPath, 'extra');
     await mkdir(reportOutputPath);
     const reporter = Reporter.Terminal;
-    await depngn({ cwd, reportOutputPath, reporter, version: '18.0.0' });
+    await report(compatData, { reportOutputPath, reporter, version: '18.0.0' });
 
     const reportExists = !!(await stat(`${reportOutputPath}/compat.html`).catch(() => false));
 
@@ -94,9 +95,9 @@ describe('reportOutputPath and reporter API options', () => {
   test('should generate a report to the console when the reporter is specified as terminal', async () => {
     const reporter = Reporter.Terminal;
     const npmDir = 'tests/unit/core/getEngines/mocks/npm/lockfileVersion2';
-
-    await depngn({ reporter: reporter, cwd: npmDir, version: '18.0.0' });
-
+    process.chdir(npmDir);
+    await report(compatData, { reporter, version: '18.0.0' });
+    process.chdir(cwd);
     expect(table).toHaveBeenCalledWith(
       [
         ['package', 'compatible', 'range'].map((title) => blue(title)),
@@ -110,10 +111,5 @@ describe('reportOutputPath and reporter API options', () => {
         },
       }
     );
-  });
-
-  test('should not generate a report when reportOutputPath and reporter are not provided', async () => {
-    const result = await depngn({ cwd, version: '18.0.0' });
-    expect(result).toBeDefined();
   });
 });

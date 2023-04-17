@@ -3,7 +3,7 @@ import { createTable } from './table';
 import { createHtml } from './html';
 import { CompatData, Reporter } from 'src/types';
 
-export async function createReport(
+export async function create(
   compatData: Record<string, CompatData>,
   version: string,
   reporter: Reporter,

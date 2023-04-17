@@ -18,6 +18,22 @@ Promise.all([
   }),
   build({
     ...baseCoreConfig,
+    format: 'cjs',
+  }),
+  build({
+    ...baseCoreConfig,
+    entry: ['./src/report/index.ts'],
+    format: 'esm',
+    outDir: 'dist/report',
+  }),
+  build({
+    ...baseCoreConfig,
+    entry: ['./src/report/index.ts'],
+    format: 'cjs',
+    outDir: 'dist/report',
+  }),
+  build({
+    ...baseCoreConfig,
     entry: ['./src/cli/index.ts'],
     outDir: 'dist/cli',
     format: 'cjs',

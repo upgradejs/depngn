@@ -88,18 +88,19 @@ export interface PackageJson {
   resolutions?: RecursiveJsonObject;
 }
 
-export interface BaseOptions {
+export interface Options {
   version: string;
   cwd?: string;
 }
 
-export interface CliParsedOptions extends BaseOptions {
+export interface CliOptions extends Options {
   reporter: Reporter;
+  reportOutputPath?: string;
 }
 
-export interface ApiOptions extends BaseOptions {
-  reportOutputPath?: string;
+export interface ReportOptions extends Options {
   reporter?: Reporter;
+  reportOutputPath?: string;
 }
 
 export type CompatDataMap = Record<string, CompatData>;

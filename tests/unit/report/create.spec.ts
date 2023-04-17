@@ -1,4 +1,4 @@
-import { createReport } from 'src/cli/reporter';
+import { create } from 'src/report/create';
 import { Reporter } from 'src/types';
 import { writeFileWithFolder } from 'src/utils';
 import { table } from 'table';
@@ -43,7 +43,7 @@ describe('createReport', () => {
   });
 
   it('outputs correct table', async () => {
-    await createReport(mockCompatData, '8.0.0', Reporter.Terminal);
+    await create(mockCompatData, '8.0.0', Reporter.Terminal);
     expect(table).toHaveBeenCalledWith(
       [
         ['package', 'compatible', 'range'].map((title) => blue(title)),
@@ -61,7 +61,7 @@ describe('createReport', () => {
   });
 
   it('outputs correct json', async () => {
-    await createReport(mockCompatData, '8.0.0', Reporter.Json);
+    await create(mockCompatData, '8.0.0', Reporter.Json);
     expect(writeFileWithFolder).toHaveBeenCalledWith(
       'compat.json',
       `{
@@ -84,7 +84,7 @@ describe('createReport', () => {
   });
 
   it('outputs correct html', async () => {
-    await createReport(mockCompatData, '8.0.0', Reporter.Html);
+    await create(mockCompatData, '8.0.0', Reporter.Html);
     expect(writeFileWithFolder).toHaveBeenCalled();
     // this is necessary because whitespace is wonky with template literals
     // so we grab the args directly from the mock function's metadata

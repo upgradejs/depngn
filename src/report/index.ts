@@ -1,9 +1,10 @@
-import { ApiOptions, CompatDataMap, Reporter } from 'src/types';
+import { CompatDataMap, Reporter, ReportOptions } from 'src/types';
 import log from 'fancy-log';
-import { createReport } from 'cli/reporter';
-export async function generateCompatibilityReport(
+import { create } from './create';
+
+export async function report(
   compatData: CompatDataMap,
-  { reporter, version, reportOutputPath }: ApiOptions
+  { reporter, version, reportOutputPath }: ReportOptions
 ) {
   const isHtmlFile = reportOutputPath?.endsWith('.html');
   const isJsonFile = reportOutputPath?.endsWith('.json');
@@ -32,7 +33,7 @@ export async function generateCompatibilityReport(
       finalPath = `${finalPath}${finalPath.endsWith('/') ? '' : '/'}compat.${finalReporter}`;
     }
 
-    await createReport(compatData, version, finalReporter, finalPath);
+    await create(compatData, version, finalReporter, finalPath);
   } else if (reportOutputPath) {
     if (!isHtmlFile && !isJsonFile) {
       log.warn(
@@ -40,13 +41,8 @@ export async function generateCompatibilityReport(
       );
     }
 
-    await createReport(
-      compatData,
-      version,
-      isJsonFile ? Reporter.Json : Reporter.Html,
-      reportOutputPath
-    );
+    await create(compatData, version, isJsonFile ? Reporter.Json : Reporter.Html, reportOutputPath);
   } else if (reporter) {
-    await createReport(compatData, version, reporter);
+    await create(compatData, version, reporter);
   }
 }

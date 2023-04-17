@@ -4,6 +4,7 @@ import { parseCliArgs } from './parse';
 import { createUsage } from './usage';
 import { validateArgs } from './validate';
 import { depngn } from 'src/core';
+import { report } from 'src/report';
 
 export async function cli() {
   try {
@@ -12,10 +13,11 @@ export async function cli() {
       createUsage();
     } else {
       await validateArgs({ version, reporter, cwd });
-      await execWithLog(
+      const compatData = await execWithLog(
         'Parsing engine data',
-        async () => await depngn({ version, cwd, reportOutputPath, reporter })
+        async () => await depngn({ version, cwd })
       );
+      await report(compatData, { version, reporter, reportOutputPath });
     }
   } catch (error) {
     log.error(error);

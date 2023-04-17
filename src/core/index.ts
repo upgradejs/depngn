@@ -1,12 +1,8 @@
 import { getCompatData } from './getCompatData';
-import { ApiOptions } from 'src/types';
+import { Options } from 'src/types';
 import path from 'path';
-import { generateCompatibilityReport } from 'core/generateCompatibilityReport';
-import { validateArgs } from 'cli/validate';
 
-export async function depngn({ cwd, reportOutputPath, reporter, version }: ApiOptions) {
-  await validateArgs({ version, reporter, cwd });
-
+export async function depngn({ cwd, version }: Options) {
   const originalCwd = process.cwd();
   try {
     if (cwd && originalCwd !== cwd) {
@@ -16,11 +12,7 @@ export async function depngn({ cwd, reportOutputPath, reporter, version }: ApiOp
       // to resolve the path
       process.chdir(path.resolve(cwd));
     }
-    const compatData = await getCompatData(version);
-
-    if (!reporter && !reportOutputPath) return compatData;
-
-    await generateCompatibilityReport(compatData, { reporter, version, reportOutputPath });
+    return await getCompatData(version);
   } finally {
     process.chdir(originalCwd);
   }
