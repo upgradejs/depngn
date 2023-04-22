@@ -94,13 +94,9 @@ export interface Options {
 }
 
 export interface CliOptions extends Options {
-  reporter: Reporter;
-  reportOutputPath?: string;
-}
-
-export interface ReportOptions extends Options {
   reporter?: Reporter;
-  reportOutputPath?: string;
+  reportDir?: string;
+  reportFileName?: string;
 }
 
 export type CompatDataMap = Record<string, CompatData>;

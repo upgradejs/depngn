@@ -5,7 +5,7 @@ import { CompatData } from 'src/types';
 export async function createJson(
   compatData: Record<string, CompatData>,
   version: string,
-  path = 'compat.json'
+  path: string
 ) {
   const out = JSON.stringify(
     {

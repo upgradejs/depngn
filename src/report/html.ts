@@ -5,7 +5,7 @@ import { CompatData } from 'src/types';
 export async function createHtml(
   compatData: Record<string, CompatData>,
   version: string,
-  path = 'compat.html'
+  path: string
 ) {
   const compatDataKeys = Object.keys(compatData);
   const classGreen = 'green';

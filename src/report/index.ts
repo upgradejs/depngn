@@ -1,48 +1,26 @@
-import { CompatDataMap, Reporter, ReportOptions } from 'src/types';
-import log from 'fancy-log';
-import { create } from './create';
+import { join } from 'path';
+import { createJson } from './json';
+import { createTable } from './table';
+import { createHtml } from './html';
+import { CliOptions, CompatDataMap, Reporter } from 'src/types';
 
 export async function report(
   compatData: CompatDataMap,
-  { reporter, version, reportOutputPath }: ReportOptions
+  { reporter = Reporter.Terminal, version, reportDir, reportFileName }: CliOptions
 ) {
-  const isHtmlFile = reportOutputPath?.endsWith('.html');
-  const isJsonFile = reportOutputPath?.endsWith('.json');
-
-  if (reportOutputPath && reporter) {
-    let finalPath = reportOutputPath;
-    let finalReporter = reporter;
-
-    if (isHtmlFile && reporter !== Reporter.Html) {
-      finalReporter = Reporter.Html;
-      log.warn(
-        `The option \`reporter\` is set to "${reporter}" and is going to be ignored because the report output path ends with ".html"`
-      );
-    } else if (isJsonFile && reporter !== Reporter.Json) {
-      finalReporter = Reporter.Json;
-      log.warn(
-        `The option \`reporter\` is set to "${reporter}" and is going to be ignored because the report output path ends with ".json"`
-      );
-    } else if (!isHtmlFile && !isJsonFile) {
-      if (reporter === Reporter.Terminal) {
-        finalReporter = Reporter.Html;
-        log.warn(
-          `The option \`reporter\` is set to "${Reporter.Terminal}" and the report output path does not end with ".html" or ".json", defaulting to ".html"`
-        );
-      }
-      finalPath = `${finalPath}${finalPath.endsWith('/') ? '' : '/'}compat.${finalReporter}`;
-    }
-
-    await create(compatData, version, finalReporter, finalPath);
-  } else if (reportOutputPath) {
-    if (!isHtmlFile && !isJsonFile) {
-      log.warn(
-        'The report output path does not end with ".html" or ".json", defaulting to ".html"'
+  const finalOutputFilePath = join(reportDir ?? '', `${reportFileName ?? 'compat'}.${reporter}`);
+  switch (reporter) {
+    case Reporter.Terminal:
+      return createTable(compatData, version);
+    case Reporter.Json:
+      return await createJson(compatData, version, finalOutputFilePath);
+    case Reporter.Html:
+      return await createHtml(compatData, version, finalOutputFilePath);
+    default: {
+      const wrong = reporter as never;
+      throw new Error(
+        `This error shouldn't happen, but somehow you entered an invalid reporter and it made it past the first check: ${wrong}.`
       );
     }
-
-    await create(compatData, version, isJsonFile ? Reporter.Json : Reporter.Html, reportOutputPath);
-  } else if (reporter) {
-    await create(compatData, version, reporter);
   }
 }
