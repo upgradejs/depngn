@@ -26,10 +26,11 @@ npx depngn 14.17.6 --reporter=json
 
 `depngn` supports these options:
 
-- `--reporter`
 - `--help`
 - `--cwd`
-- `--reportOutputPath`
+- `--reporter`
+- `--reportDir`
+- `--reportFileName`
 
 #### `--cwd`
 
@@ -52,14 +53,11 @@ is executed in. It uses the following format:
 }
 ```
 
-#### `--reportOutputPath`
+#### `--reportDir`
 This allows you to specify the path where you want the report to be generated. If no path is specified, it will default to the current working directory.
-There are a few things to note:
-- If the path you specify doesn't exist, it will be created
-- If the path includes a file name, the file name will be used as the name of the report file. The report type will be determined by the extension of the file name, and it supouse to be one of the following: `.html`, `.json`
-- If the path doesn't include an extension, it will default to `.html` (if the `--reporter` is set to `html` or not specified at all) or `.json` (if the `--reporter` is set to `json`)
-- If both `--reporter` and `--reportOutputPath` are specified, the `--reporter` option will be ignored in case the `--reportOutputPath` includes a file name with the extension
 
+#### `--reportFileName`
+This allows you to specify the name of the report file. If no name is specified, it will default to `compat`.
 
 ### A Note on The Engines Field
 
@@ -81,8 +79,6 @@ tools. It takes an object as an argument:
 interface Options {
   version: string;
   cwd: string | undefined;
-  reportOutputPath: string | undefined;
-  reporter: 'terminal' | 'html' | 'json' | undefined;
 }
 ```
 
@@ -114,6 +110,34 @@ There's also a chance there *is* an `engines` field specified in the package, bu
   compatible: 'invalid',
   range: '1 .2 . 0not-a-valid-range'
 }
+```
+
+## Report module
+
+You can import `report` (the function that generates a report file when using CLI) as a standalone function to use in your tools to create reports exactly when you need them. It takes two arguments - the first is a result of the `depngn` function, and the second is an object with options:
+
+```typescript
+interface CliOptions {
+  version: string;
+  cwd: string | undefined;
+  reporter: 'terminal' | 'html' | 'json' | undefined;
+  reportDir: string | undefined;
+  reportFileName: string | undefined;
+}
+```
+
+It returns a promise that resolves as a report file of the given type (`html`, `json`) or prints the result to the console if the report is not provided or is `terminal`.
+
+### Usage
+
+```javascript
+import { report } from 'depngn/report';
+
+const createReport = async () => {
+  const desiredVersion = '10.0.0';
+  const result = await depngn({ version: desiredVersion });
+  await report(result, { version: desiredVersion, reportDir: './dependencies-reports', reportFileName: 'depngn' });
+};
 ```
 
 ## Supported Package Managers
