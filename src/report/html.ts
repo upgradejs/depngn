@@ -1,10 +1,11 @@
-import { writeFile } from 'src/utils';
+import log from 'fancy-log';
+import { writeFileWithFolder } from 'src/utils';
 import { CompatData } from 'src/types';
 
 export async function createHtml(
   compatData: Record<string, CompatData>,
   version: string,
-  path = 'compat.html'
+  path: string
 ) {
   const compatDataKeys = Object.keys(compatData);
   const classGreen = 'green';
@@ -78,6 +79,6 @@ export async function createHtml(
   </body>
   </html>`;
 
-  await writeFile(path, out);
-  console.log(`File generated at ${path}`);
+  await writeFileWithFolder(path, out);
+  log.info(`File generated at ${path}`);
 }

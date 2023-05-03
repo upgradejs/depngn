@@ -25,6 +25,7 @@
       "src/*": ["./src/*"],
       "core/*": ["./src/core/*"],
       "cli/*": ["./src/cli/*"],
+      "report/*": ["./src/report/*"],
     }
   },
   "include": [

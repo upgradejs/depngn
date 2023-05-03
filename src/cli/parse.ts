@@ -7,13 +7,19 @@ export function parseCliArgs() {
     '--help': Boolean,
     '--reporter': String,
     '--cwd': String,
+    '--reportDir': String,
+    '--reportFileName': String,
     '-h': '--help',
     '-r': '--reporter',
+    '-d': '--reportDir',
+    '-f': '--reportFileName',
   });
   const version = args._[0] ?? versions.node;
-  const reporter = (args['--reporter'] as Reporter) ?? Reporter.Terminal;
+  const reporter = args['--reporter'];
   const help = args['--help'];
   const cwd = args['--cwd'];
+  const reportDir = args['--reportDir'];
+  const reportFileName = args['--reportFileName'];
 
-  return { version, reporter, help, cwd };
+  return { version, reporter, help, cwd, reportDir, reportFileName };
 }

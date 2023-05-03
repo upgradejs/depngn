@@ -93,6 +93,10 @@ export interface Options {
   cwd?: string;
 }
 
-export interface CliParsedOptions extends Options {
-  reporter: Reporter;
+export interface CliOptions extends Options {
+  reporter?: Reporter;
+  reportDir?: string;
+  reportFileName?: string;
 }
+
+export type CompatDataMap = Record<string, CompatData>;

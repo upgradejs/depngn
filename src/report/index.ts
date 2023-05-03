@@ -1,20 +1,21 @@
+import { join } from 'path';
 import { createJson } from './json';
 import { createTable } from './table';
 import { createHtml } from './html';
-import { CompatData, Reporter } from 'src/types';
+import { CliOptions, CompatDataMap, Reporter } from 'src/types';
 
-export async function createReport(
-  compatData: Record<string, CompatData>,
-  version: string,
-  reporter: Reporter
+export async function report(
+  compatData: CompatDataMap,
+  { reporter = Reporter.Terminal, version, reportDir, reportFileName }: CliOptions
 ) {
+  const finalOutputFilePath = join(reportDir ?? '', `${reportFileName ?? 'compat'}.${reporter}`);
   switch (reporter) {
     case Reporter.Terminal:
       return createTable(compatData, version);
     case Reporter.Json:
-      return await createJson(compatData, version);
+      return await createJson(compatData, version, finalOutputFilePath);
     case Reporter.Html:
-      return await createHtml(compatData, version);
+      return await createHtml(compatData, version, finalOutputFilePath);
     default: {
       const wrong = reporter as never;
       throw new Error(

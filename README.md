@@ -26,9 +26,11 @@ npx depngn 14.17.6 --reporter=json
 
 `depngn` supports these options:
 
-- `--reporter`
 - `--help`
 - `--cwd`
+- `--reporter`
+- `--reportDir`
+- `--reportFileName`
 
 #### `--cwd`
 
@@ -50,6 +52,12 @@ is executed in. It uses the following format:
   range: string // the range of supported Node versions
 }
 ```
+
+#### `--reportDir`
+This allows you to specify the path where you want the report to be generated. If no path is specified, it will default to the current working directory.
+
+#### `--reportFileName`
+This allows you to specify the name of the report file. If no name is specified, it will default to `compat`.
 
 ### A Note on The Engines Field
 
@@ -102,6 +110,34 @@ There's also a chance there *is* an `engines` field specified in the package, bu
   compatible: 'invalid',
   range: '1 .2 . 0not-a-valid-range'
 }
+```
+
+## Report module
+
+You can import `report` (the function that generates a report file when using CLI) as a standalone function to use in your tools to create reports exactly when you need them. It takes two arguments - the first is a result of the `depngn` function, and the second is an object with options:
+
+```typescript
+interface CliOptions {
+  version: string;
+  cwd: string | undefined;
+  reporter: 'terminal' | 'html' | 'json' | undefined;
+  reportDir: string | undefined;
+  reportFileName: string | undefined;
+}
+```
+
+It returns a promise that resolves as a report file of the given type (`html`, `json`) or prints the result to the console if the report is not provided or is `terminal`.
+
+### Usage
+
+```javascript
+import { report } from 'depngn/report';
+
+const createReport = async () => {
+  const desiredVersion = '10.0.0';
+  const result = await depngn({ version: desiredVersion });
+  await report(result, { version: desiredVersion, reportDir: './dependencies-reports', reportFileName: 'depngn' });
+};
 ```
 
 ## Supported Package Managers

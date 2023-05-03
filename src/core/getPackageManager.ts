@@ -1,4 +1,4 @@
-import { access } from 'src/utils';
+import { pathExists } from 'src/utils';
 import { Manager, PackageManagerName } from 'src/types';
 
 export const MANAGERS: Record<string, Manager> = {
@@ -35,13 +35,4 @@ export async function getPackageManager(): Promise<Manager> {
     );
   }
   return MANAGERS[packageManager];
-}
-
-async function pathExists(path: string) {
-  try {
-    await access(path);
-    return true;
-  } catch {
-    return false;
-  }
 }

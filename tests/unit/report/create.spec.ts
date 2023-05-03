@@ -1,6 +1,6 @@
-import { createReport } from 'src/cli/reporter';
+import { report } from 'src/report';
 import { Reporter } from 'src/types';
-import { writeFile } from 'src/utils';
+import { writeFileWithFolder } from 'src/utils';
 import { table } from 'table';
 import { blue, green, red, yellow } from 'kleur/colors';
 
@@ -20,7 +20,7 @@ const mockCompatData = {
 };
 
 jest.mock('src/utils', () => ({
-  writeFile: jest.fn(),
+  writeFileWithFolder: jest.fn(),
 }));
 
 jest.mock('table', () => ({
@@ -43,7 +43,9 @@ describe('createReport', () => {
   });
 
   it('outputs correct table', async () => {
-    await createReport(mockCompatData, '8.0.0', Reporter.Terminal);
+    await report(mockCompatData, {
+      version: '8.0.0',
+    });
     expect(table).toHaveBeenCalledWith(
       [
         ['package', 'compatible', 'range'].map((title) => blue(title)),
@@ -61,8 +63,11 @@ describe('createReport', () => {
   });
 
   it('outputs correct json', async () => {
-    await createReport(mockCompatData, '8.0.0', Reporter.Json);
-    expect(writeFile).toHaveBeenCalledWith(
+    await report(mockCompatData, {
+      version: '8.0.0',
+      reporter: Reporter.Json,
+    });
+    expect(writeFileWithFolder).toHaveBeenCalledWith(
       'compat.json',
       `{
   \"node\": \"8.0.0\",
@@ -84,11 +89,14 @@ describe('createReport', () => {
   });
 
   it('outputs correct html', async () => {
-    await createReport(mockCompatData, '8.0.0', Reporter.Html);
-    expect(writeFile).toHaveBeenCalled();
+    await report(mockCompatData, {
+      version: '8.0.0',
+      reporter: Reporter.Html,
+    });
+    expect(writeFileWithFolder).toHaveBeenCalled();
     // this is necessary because whitespace is wonky with template literals
     // so we grab the args directly from the mock function's metadata
-    const [path, htmlInput] = (writeFile as jest.Mock).mock.calls[0];
+    const [path, htmlInput] = (writeFileWithFolder as jest.Mock).mock.calls[0];
     expect(path).toEqual('compat.html');
     expect(htmlInput.replace(/\s+/g, '')).toEqual(htmlExpected);
   });

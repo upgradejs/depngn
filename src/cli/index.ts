@@ -1,25 +1,39 @@
+import log from 'fancy-log';
 import { execWithLog } from './log';
 import { parseCliArgs } from './parse';
-import { createReport } from './reporter';
 import { createUsage } from './usage';
 import { validateArgs } from './validate';
 import { depngn } from 'src/core';
+import { report } from 'src/report';
+import { Reporter } from 'src/types';
 
 export async function cli() {
   try {
-    const { version, reporter, help, cwd } = parseCliArgs();
+    const { version, reporter, help, cwd, reportFileName, reportDir } = parseCliArgs();
     if (help) {
       createUsage();
     } else {
-      validateArgs({ version, reporter, cwd });
+      const typedReporter = reporter as Reporter | undefined;
+      await validateArgs({
+        version,
+        reporter: typedReporter,
+        cwd,
+        reportFileName,
+        reportDir,
+      });
       const compatData = await execWithLog(
         'Parsing engine data',
         async () => await depngn({ version, cwd })
       );
-      await createReport(compatData, version, reporter);
+      await report(compatData, {
+        version,
+        reporter: typedReporter,
+        reportFileName,
+        reportDir,
+      });
     }
   } catch (error) {
-    console.error(error);
+    log.error(error);
     process.exitCode = 1;
   }
 }
