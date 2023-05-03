@@ -1,5 +1,8 @@
 # main (unreleased)
 
+# 0.6.0
+- [[feature]: add the ability to generate a report file in the desired path and with desired name](https://github.com/upgradejs/depngn/pull/46)
+
 # 0.5.0
 - [[feature]: export types and migrate from `rollup` to `tsup` for the build purposes](https://github.com/upgradejs/depngn/pull/41)
 - [[feature]: add tests](https://github.com/upgradejs/depngn/pull/40)
