@@ -23,4 +23,18 @@ describe('getPackageData', () => {
       range: 'not-a-range',
     });
   });
+
+  it('correctly handles malformed range', async () => {
+    const output = getPackageData(
+      {
+        package: 'test-package',
+        range: '> = 8.0.0 < = 9.0.0',
+      },
+      '8.0.0'
+    );
+    expect(output).toStrictEqual({
+      compatible: true,
+      range: '> = 8.0.0 < = 9.0.0',
+    });
+  });
 });
